@@ -60,9 +60,13 @@ static t_list	*mat_to_node_lst(char **mat, int len, int *err)
 static void	matclear(char ***mat)
 {
 	size_t	i;
-	while (**mat + i)
+	char	**tmp;
+
+	tmp = *mat;
+	i = 0;
+	while (*(tmp + i) != NULL)
 	{
-		free(**mat + i);
+		free(*(tmp + i));
 		i++;
 	}
 	free(*mat);
@@ -73,7 +77,7 @@ static size_t	matlen(char **mat)
 	size_t	i;
 
 	i = 0;
-	while (*(mat + i))
+	while (*(mat + i) != NULL)
 		i++;
 	return (i);
 }

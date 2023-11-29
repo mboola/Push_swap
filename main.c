@@ -49,11 +49,17 @@ int	main(int argc, char **argv)
 	if (err)
 		return (clear_and_exit(&stk_a, &stk_b));
 	print_lst(stk_a->nodes);
-	//clear_data(&stk_a, &stk_b, NULL);
 	ptr_lst	= get_ptr_lst(stk_a, &err);		//this creates a t_list of pointers to elems of stack_a->nodes
 	if (err)
 		return (clear_and_exit(&stk_a, &stk_b));
 	print_ptr_lst(ptr_lst);
+
+	//t_list	*test = extract_last(ptr_lst);
+	//t_list	*test = extract_first(&ptr_lst);
+	//printf("element:\n");
+	//print_ptr_lst(test);
+	//printf("rest of the list:\n");
+	//print_ptr_lst(ptr_lst);
 
 	/*
 	//test
@@ -65,14 +71,20 @@ int	main(int argc, char **argv)
 	print_ptr_lst(ptr_lst);
 	printf("Stack: \n");
 	print_lst(stk_a->nodes);
+
+	//printf("Number: %d\n", get_node_number_from_lst(ptr_lst));
 	//ftest*/
 
-	clear_data(&stk_a, &stk_b, &ptr_lst);
-	/*
-	ptr_lst = sort_ptr_lst(&ptr_lst, &err);
+	
+	ptr_lst = sort_ptr_lst(ptr_lst, &err);
+	//ptr_lst = quick_sort(ptr_lst, &err);
 	if (err)
 		return (clear_and_exit(&stk_a, &stk_b));
-	push_swap(&stk_a, &stk_b, &ptr_lst);
-	*/
+	if (ptr_lst)
+		print_ptr_lst(ptr_lst);
+	//clear_data(&stk_a, &stk_b, &ptr_lst);
+
+
+	//push_swap(&stk_a, &stk_b, &ptr_lst);
 	return (0);
 }

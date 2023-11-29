@@ -38,6 +38,37 @@ t_list	*ft_lstnew(void *content)
 	return (node);
 }
 
+t_list	*extract_last(t_list **lst)
+{
+	t_list	*new_last;
+	t_list	*lst_iter;
+
+	if (*lst == NULL)
+		return (NULL);
+	lst_iter = *lst;
+	new_last = NULL;
+	while (lst_iter->next != NULL)
+	{
+		new_last = lst_iter;
+		lst_iter = lst_iter->next;
+	}
+	if (new_last != NULL)
+		new_last->next = NULL;
+	else
+		*lst = NULL;
+	return (lst_iter);
+}
+
+t_list	*extract_first(t_list **lst)
+{
+	t_list	*first;
+
+	first = *lst;
+	*lst = (*lst)->next;
+	first->next = NULL;
+	return (first);
+}
+
 t_list	*ft_lstlast(t_list *lst)
 {
 	if (lst == NULL)
@@ -55,6 +86,14 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 		*lst = new;
 	else
 		ft_lstlast(*lst)->next = new;
+}
+
+int		get_node_number_from_lst(t_list *ptr_lst)
+{
+	int	number;
+
+	number = (*((t_node **)(ptr_lst->content)))->number;
+	return (number);
 }
 
 int		ft_atoi(char *str, char **rest)

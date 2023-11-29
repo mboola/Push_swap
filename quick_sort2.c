@@ -30,47 +30,72 @@ t_list	*get_ptr_lst(t_stack *stk, int *err)
 	return (ptr_lst);
 }
 
-
-t_list	*quick_sort(t_list *lst, int *err)
+static int	clear_all(t_list **first, t_list **second, t_list **pivot, t_list **lst)
 {
-	/*
-	t_list	*first;			// The first list of numbers (lower of pivot)
-	t_list	*second;		// The second list of numbers (higher of pivot)
-	t_list	*node;			// A new node of the t_list
-	int		pivot;
-
-	// If something fails here, it gets cleared. (Except lst)
-	sort_elem(lst, &first, &second, err);
-	if (*err)
-		return (NULL);
-	first = rearrange_list(&first, err);
-	if (*err)
-		return (clear_lists(&second, NULL));
-	pivot = *(int *)(ft_lstlast(lst)->content);	// We get the last element
-	node = create_node(pivot, err);	// we create a node with the pivot
-	if (*err)
-		return (clear_lists(&first, &second));
-	ft_lstadd_back(&first, node);
-	second = rearrange_list(&second, err);
-	if (*err)
-		return (clear_lists(&first, NULL));
-	ft_lstadd_back(&first, second);*/
-	//return (first);
-	return (NULL);
+	if (*first)
+		clear_ptr_lst(first);
+	if (*second)
+		clear_ptr_lst(second);
+	if (*pivot)
+		clear_ptr_lst(pivot);
+	if (*lst)
+		clear_ptr_lst(lst);
+	return (1);
 }
 
-/*
- *	*lst has all nodes. We will take them out of lst and put them in first or second
-*/
-void	sort_elems(t_list *lst, t_list **first, t_list **second)
+static int	distribute_elem(t_list **first, t_list **second, t_list **pivot, t_list **lst)
 {
-	/*
-	int		pivot;			// The pivot to sort elems
-	int		current_number;	// The current number to sort
-	t_list	*node;			// A new node of the t_list
+	int		pivot_num;
+	int		current_number;
 
-	*first = NULL;
-	*second = NULL;*/
+	if (*lst == NULL || *pivot == NULL)		// If there is no list to sort, we leave
+		return (0);
+	pivot_num = get_node_number_from_lst(*pivot);
+	while ((*lst)->next != NULL)
+	{
+		current_number = get_node_number_from_lst(*lst);
+		if (current_number < pivot_num)
+			ft_lstadd_back(first, extract_first(lst));
+		else if (current_number > pivot_num)
+			ft_lstadd_back(second, extract_first(lst));
+		else	// current_number == pivot_num
+			return (clear_all(first, second, pivot, lst));
+	}
+	current_number = get_node_number_from_lst(*lst);
+	if (current_number < pivot_num)
+		ft_lstadd_back(first, extract_first(lst));
+	else if (current_number > pivot_num)
+		ft_lstadd_back(second, extract_first(lst));
+	else	// current_number == pivot_num
+		return (clear_all(first, second, pivot, lst));
+	return (0);
+}
+
+static t_list	*quick_sort(t_list *lst, int *err)
+{
+	t_list	*first;			// The first list of numbers (lower of pivot)
+	t_list	*second;		// The second list of numbers (higher of pivot)
+	t_list	*pivot;			// Last elem of list acting as a pivot
+
+	first = NULL;
+	second = NULL;
+	pivot = extract_last(&lst);
+	if (distribute_elem(&first, &second, &pivot, &lst))
+	{
+		*err = 1;
+		return (NULL);
+	}
+	if (first)
+		first = quick_sort(first, err);
+	if (*err)
+		return (NULL);
+	ft_lstadd_back(&first, pivot);
+	if (second)
+		second = quick_sort(second, err);
+	if (*err)
+		return (NULL);
+	ft_lstadd_back(&first, second);
+	return (first);
 }
 
 /*
@@ -80,16 +105,12 @@ void	sort_elems(t_list *lst, t_list **first, t_list **second)
 */
 t_list	*sort_ptr_lst(t_list *lst, int *err)
 {
-	/*
-	t_list	*first;			// The first list of numbers (lower of pivot)
-	t_list	*second;		// The second list of numbers (higher of pivot)
-	t_list	*pivot;			// A new node of the t_list
-	int		pivot;
+	t_list	*sorted;
 
-	//sorted_lst = NULL;
-	//sort_elem(lst, &first, &second);
-
-
-	//clear_ptr_lst(lst);*/
-	return (NULL);
+	if (lst == NULL)
+		return (NULL);
+	sorted = quick_sort(lst, err);
+	if (sorted == NULL)
+		printf("it is null.");
+	return (sorted);
 }

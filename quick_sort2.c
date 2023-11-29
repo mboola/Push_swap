@@ -11,7 +11,7 @@ t_list	*get_ptr_lst(t_stack *stk, int *err)
 	nodes = stk->nodes;
 	while(nodes->next != NULL)
 	{
-		ptr_node = ft_lstnew(nodes->content);	//nodes->content is the (num, stack)
+		ptr_node = ft_lstnew(&(nodes->content));	//nodes->content is the (num, stack)
 		if (!ptr_node)
 		{
 			*err = 1;
@@ -20,7 +20,7 @@ t_list	*get_ptr_lst(t_stack *stk, int *err)
 		ft_lstadd_back(&ptr_lst, ptr_node);
 		nodes = nodes->next;
 	}
-	ptr_node = ft_lstnew(nodes->content);
+	ptr_node = ft_lstnew(&(nodes->content));
 	if (!ptr_node)
 	{
 		*err = 1;

@@ -11,7 +11,6 @@ void	free_node(void *content)
 
 void	free_ptr_node(void *content)
 {
-	free(content);
 }
 
 t_list	*clear_ptr_lst(t_list **lst)

@@ -82,7 +82,7 @@ int	main(int argc, char **argv)
 		return (clear_and_exit(&stk_a, &stk_b));
 	if (ptr_lst)
 		print_ptr_lst(ptr_lst);
-	//clear_data(&stk_a, &stk_b, &ptr_lst);
+	clear_data(&stk_a, &stk_b, &ptr_lst);
 
 
 	//push_swap(&stk_a, &stk_b, &ptr_lst);

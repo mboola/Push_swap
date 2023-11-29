@@ -35,12 +35,13 @@ int	main(int argc, char **argv)
 	if (err)
 		return (clear_and_exit(&stk_a, &stk_b));
 	print_lst(stk_a->nodes);
-	return (clear_and_exit(&stk_a, &stk_b));
-	//here Ive got the base data of stacks set. Now I will get the data necessary to sort
+	clear_data(&stk_a, &stk_b, NULL);
+	//ptr_lst	= get_ptr_lst(stk_a, &err);
+	//if (err)
+	//	return (clear_and_exit(&stk_a, &stk_b));
+	//print_lst(ptr_lst);
+	//clear_data(&stk_a, &stk_b, &ptr_lst);
 	/*
-	ptr_lst	= get_ptr_lst(stk_a, &err);
-	if (err)
-		return (clear_and_exit(&stk_a, &stk_b));
 	ptr_lst = sort_ptr_lst(&ptr_lst, &err);
 	if (err)
 		return (clear_and_exit(&stk_a, &stk_b));

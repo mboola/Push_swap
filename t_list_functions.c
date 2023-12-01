@@ -35,6 +35,7 @@ t_list	*ft_lstnew(void *content)
 		return (NULL);
 	node->content = content;
 	node->next = NULL;
+	node->previous = NULL;
 	return (node);
 }
 
@@ -56,6 +57,7 @@ t_list	*extract_last(t_list **lst)
 		new_last->next = NULL;
 	else
 		*lst = NULL;
+	lst_iter->previous = NULL;
 	return (lst_iter);
 }
 
@@ -65,6 +67,8 @@ t_list	*extract_first(t_list **lst)
 
 	first = *lst;
 	*lst = (*lst)->next;
+	if (*lst != NULL)
+		(*lst)->previous = NULL;
 	first->next = NULL;
 	return (first);
 }
@@ -80,12 +84,19 @@ t_list	*ft_lstlast(t_list *lst)
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
+	t_list	*last;
+
 	if (lst == NULL)
 		return ;
 	if (*lst == NULL)
 		*lst = new;
 	else
-		ft_lstlast(*lst)->next = new;
+	{
+		last = ft_lstlast(*lst);
+		if (new != NULL)
+			new->previous = last;
+		last->next = new;
+	}
 }
 
 int		get_node_number_from_lst(t_list *ptr_lst)

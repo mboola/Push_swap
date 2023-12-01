@@ -16,6 +16,7 @@ typedef struct t_list
 {
 	void			*content;
 	struct t_list	*next;
+	struct t_list	*previous;
 }	t_list;
 
 typedef struct t_stack

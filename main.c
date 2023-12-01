@@ -33,6 +33,23 @@ static void	print_ptr_lst(t_list *lst)
 	printf("%d\n", (*node)->number);
 }
 
+static void	print_reverse(t_list *lst)
+{
+	t_list *last;
+	t_node	**node;
+
+	printf("starting to print reverse:\n");
+	last = ft_lstlast(lst);
+	while (last->previous != NULL)
+	{
+		node = (t_node **)(last->content);
+		printf("%d\n", (*node)->number);
+		last = last->previous;
+	}
+	node = (t_node **)(last->content);
+	printf("%d\n", (*node)->number);
+}
+
 int	main(int argc, char **argv)
 {
 	t_stack	*stk_a;
@@ -60,7 +77,7 @@ int	main(int argc, char **argv)
 	//print_ptr_lst(test);
 	//printf("rest of the list:\n");
 	//print_ptr_lst(ptr_lst);
-
+	
 	/*
 	//test
 	t_list	*node1 = ft_lstlast(ptr_lst);
@@ -76,12 +93,15 @@ int	main(int argc, char **argv)
 	//ftest*/
 
 	
+	
 	ptr_lst = sort_ptr_lst(ptr_lst, &err);
-	//ptr_lst = quick_sort(ptr_lst, &err);
 	if (err)
 		return (clear_and_exit(&stk_a, &stk_b));
 	if (ptr_lst)
+	{
 		print_ptr_lst(ptr_lst);
+		print_reverse(ptr_lst);
+	}
 	clear_data(&stk_a, &stk_b, &ptr_lst);
 
 

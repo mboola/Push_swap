@@ -87,9 +87,15 @@ int	main(int argc, char **argv)
 		// ./push_swap 
 		// ./push_swap "123 1 " ""
 		// ./push_swap "1" "2" "3" ??????!!!! TODO
+	//write(1, "b\n", 2);	//arribes
+	printf("%d\n", argc);
 	stk_a->nodes = convert_arg_to_lst(argv, argc, &err);
 	if (err)
+	{
+		write(1, "a\n", 2); //here it doesnt
 		return (clear_and_exit(&stk_a, &stk_b));
+	}
+	write(1, "c\n", 2);
 	print_lst(stk_a->nodes);
 	print_len_lst(stk_a->nodes);
 	ptr_lst	= get_ptr_lst(stk_a, &err);		//this creates a t_list of pointers to elems of stack_a->nodes

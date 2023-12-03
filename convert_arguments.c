@@ -100,6 +100,12 @@ t_list	*convert_arg_to_lst(char **argv, int argc, int *err)
 	if (argc == 2)
 	{
 		split = ft_split(argv[1], ' ');
+		if (*split == NULL)
+		{
+			*err = 1;
+			free (split);
+			return (NULL);
+		}
 		lst = mat_to_node_lst(split, matlen(split), err);
 		matclear(&split);
 	}

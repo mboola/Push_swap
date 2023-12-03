@@ -45,6 +45,11 @@ static t_list	*mat_to_node_lst(char **mat, int len, int *err)
 	node_lst = NULL;
 	while (i < len)
 	{
+		if (*(mat + i) == NULL || **(mat + i) == '\0')
+		{
+			*err = 1;
+			return (clear_node_lst(&node_lst));
+		}
 		num = verify_number(*(mat + i), err);
 		if (*err)
 			return (clear_node_lst(&node_lst));

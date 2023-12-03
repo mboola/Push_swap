@@ -32,15 +32,21 @@ t_list	*get_ptr_lst(t_stack *stk, int *err)
 
 static int	clear_all(t_list **first, t_list **second, t_list **pivot, t_list **lst)
 {
-	if (*first)
+	if (first && *first)
 		clear_ptr_lst(first);
-	if (*second)
+	if (second && *second)
 		clear_ptr_lst(second);
-	if (*pivot)
+	if (pivot && *pivot)
 		clear_ptr_lst(pivot);
-	if (*lst)
+	if (lst && *lst)
 		clear_ptr_lst(lst);
 	return (1);
+}
+
+static t_list	*clear_lsts(t_list **lst, t_list **pivot)
+{
+	clear_all(lst, pivot, NULL, NULL);
+	return (NULL);
 }
 
 static int	distribute_elem(t_list **first, t_list **second, t_list **pivot, t_list **lst)
@@ -88,12 +94,12 @@ static t_list	*quick_sort(t_list *lst, int *err)
 	if (first)
 		first = quick_sort(first, err);
 	if (*err)
-		return (NULL);	//TODO: here I must clear pivot and second list
+		return (clear_lsts(&second, &pivot));	//TODO: here I must clear pivot and second list
 	ft_lstadd_back(&first, pivot);
 	if (second)
 		second = quick_sort(second, err);
 	if (*err)
-		return (NULL);	//TODO: here I must clear first list
+		return (clear_lsts(&first, NULL));	//TODO: here I must clear first list
 	ft_lstadd_back(&first, second);
 	return (first);
 }

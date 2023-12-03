@@ -80,63 +80,25 @@ int	main(int argc, char **argv)
 	stk_b = create_stack('b', &err);
 	if (err)
 		return (clear_and_exit(&stk_a, &stk_b));
-	//here I must check correct input:
-		// ./push_swap ""
-		// ./push_swap "" ""
-		// ./push_swap "" "" ""
-		// ./push_swap 
-		// ./push_swap "123 1 " ""
-		// ./push_swap "1" "2" "3" ??????!!!! TODO
-	//write(1, "b\n", 2);	//arribes
-	printf("%d\n", argc);
-	stk_a->nodes = convert_arg_to_lst(argv, argc, &err);
+	stk_a->nodes = convert_arg_to_lst(argv, argc, &(stk_a->n_elem), &err);
 	if (err)
-	{
-		write(1, "a\n", 2); //here it doesnt
 		return (clear_and_exit(&stk_a, &stk_b));
-	}
-	write(1, "c\n", 2);
+	printf("n_elem: %d\n", (int)stk_a->n_elem);
 	print_lst(stk_a->nodes);
 	print_len_lst(stk_a->nodes);
 	ptr_lst	= get_ptr_lst(stk_a, &err);		//this creates a t_list of pointers to elems of stack_a->nodes
 	if (err)
 		return (clear_and_exit(&stk_a, &stk_b));
-	print_ptr_lst(ptr_lst);
-
-	//t_list	*test = extract_last(ptr_lst);
-	//t_list	*test = extract_first(&ptr_lst);
-	//printf("element:\n");
-	//print_ptr_lst(test);
-	//printf("rest of the list:\n");
 	//print_ptr_lst(ptr_lst);
-	
-	/*
-	//test
-	t_list	*node1 = ft_lstlast(ptr_lst);
-	ptr_lst->next = NULL;
-	node1->next = ptr_lst;
-	ptr_lst = node1;
-	printf("List swaped:\n");
-	print_ptr_lst(ptr_lst);
-	printf("Stack: \n");
-	print_lst(stk_a->nodes);
-
-	//printf("Number: %d\n", get_node_number_from_lst(ptr_lst));
-	//ftest*/
-
-	
-	
-	ptr_lst = sort_ptr_lst(ptr_lst, &err);
-	//return (0);
+	ptr_lst = quick_sort(ptr_lst, &err);
 	if (err)
 		return (clear_and_exit(&stk_a, &stk_b));
+	
 	if (ptr_lst)
 	{
 		print_ptr_lst(ptr_lst);
 		print_reverse(ptr_lst);
 	}
-	clear_data(&stk_a, &stk_b, &ptr_lst);
-
-	//push_swap(&stk_a, &stk_b, &ptr_lst);
+	push_swap(&stk_a, &stk_b, &ptr_lst);
 	return (0);
 }

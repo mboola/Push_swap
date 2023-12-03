@@ -28,9 +28,9 @@ typedef struct t_stack
 
 t_stack *create_stack(char name, int *err);
 void	clear_stack(t_stack **stk);
-t_list	*convert_arg_to_lst(char **argv, int argc, int *err);
+t_list	*convert_arg_to_lst(char **argv, int argc, size_t *len, int *err);
 t_list	*get_ptr_lst(t_stack *stk, int *err);
-t_list	*sort_ptr_lst(t_list *lst, int *err);
+t_list	*quick_sort(t_list *lst, int *err);
 void	push_swap(t_stack **stk_a, t_stack **stk_b, t_list **ptr_lst);
 void	clear_data(t_stack **stk_a, t_stack **stk_b, t_list	**ptr_lst);
 

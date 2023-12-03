@@ -80,7 +80,13 @@ static int	distribute_elem(t_list **first, t_list **second, t_list **pivot, t_li
 	return (0);
 }
 
-static t_list	*quick_sort(t_list *lst, int *err)
+/*
+ *	*lst is a linked list of pointers to t_node of another t_list.
+ *	*sorted list will be the same list (w/o freeing anything) but sorted
+ *	!!!!!!here we won't malloc or free anything, we will just sort things!!!!!!!!
+*/
+
+t_list	*quick_sort(t_list *lst, int *err)
 {
 	t_list	*first;			// The first list of numbers (lower of pivot)
 	t_list	*second;		// The second list of numbers (higher of pivot)
@@ -105,21 +111,4 @@ static t_list	*quick_sort(t_list *lst, int *err)
 		return (clear_lsts(&first, NULL));	//TODO: here I must clear first list
 	ft_lstadd_back(&first, second);
 	return (first);
-}
-
-/*
- *	*lst is a linked list of pointers to t_node of another t_list.
- *	*sorted list will be the same list (w/o freeing anything) but sorted
- *	!!!!!!here we won't malloc or free anything, we will just sort things!!!!!!!!
-*/
-t_list	*sort_ptr_lst(t_list *lst, int *err)
-{
-	t_list	*sorted;
-
-	if (lst == NULL)
-		return (NULL);
-	sorted = quick_sort(lst, err);
-	if (sorted == NULL)
-		printf("it is null.");
-	return (sorted);
 }

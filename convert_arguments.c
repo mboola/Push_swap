@@ -34,7 +34,7 @@ static t_list	*create_node(int number, int *err)
 	return (lst);
 }
 
-static t_list	*mat_to_node_lst(char **mat, int len, int *err)
+static t_list	*mat_to_node_lst(char **mat, int len, size_t *n_elem, int *err)
 {
 	t_list	*node_lst;
 	t_list	*node;
@@ -57,6 +57,7 @@ static t_list	*mat_to_node_lst(char **mat, int len, int *err)
 		if (*err)
 			return(clear_node_lst(&node_lst));
 		ft_lstadd_back(&node_lst, node);
+		*n_elem = *n_elem + 1;
 		i++;
 	}
 	return (node_lst);
@@ -87,7 +88,7 @@ static size_t	matlen(char **mat)
 	return (i);
 }
 
-t_list	*convert_arg_to_lst(char **argv, int argc, int *err)
+t_list	*convert_arg_to_lst(char **argv, int argc, size_t *len, int *err)
 {
 	char	**split;
 	t_list	*lst;
@@ -106,10 +107,10 @@ t_list	*convert_arg_to_lst(char **argv, int argc, int *err)
 			free (split);
 			return (NULL);
 		}
-		lst = mat_to_node_lst(split, matlen(split), err);
+		lst = mat_to_node_lst(split, matlen(split), len, err);
 		matclear(&split);
 	}
 	else
-		lst = mat_to_node_lst(argv + 1, argc - 1, err);
+		lst = mat_to_node_lst(argv + 1, argc - 1, len, err);
 	return (lst);
 }

@@ -135,8 +135,8 @@ int	main(int argc, char **argv)
 		print_ptr_lst(ptr_lst);
 		print_reverse(ptr_lst);
 	}
+	clear_data(&stk_a, &stk_b, &ptr_lst);
 
-
-	push_swap(&stk_a, &stk_b, &ptr_lst);
+	//push_swap(&stk_a, &stk_b, &ptr_lst);
 	return (0);
 }

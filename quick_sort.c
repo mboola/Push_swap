@@ -11,6 +11,9 @@ t_list	*get_ptr_lst(t_stack *stk, int *err)
 	nodes = stk->nodes;
 	while(nodes->next != NULL)
 	{
+		// IMPORTANT: here I only malloc the mem of the new node of t_list.
+		// The content of this node will be a the memory address of the content of our t_list nodes.
+		// This memory address will store a pointer t_node with a number and a stack.
 		ptr_node = ft_lstnew(&(nodes->content));	//nodes->content is the (num, stack)
 		if (!ptr_node)
 		{

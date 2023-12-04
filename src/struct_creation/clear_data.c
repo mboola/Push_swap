@@ -27,7 +27,7 @@ t_list	*clear_node_lst(t_list **lst)
 
 void	clear_stack(t_stack **stk)
 {
-	clear_node_lst(&((*stk)->nodes));
+	clear_node_lst(&((*stk)->bottom_node));
 	free(*stk);
 }
 

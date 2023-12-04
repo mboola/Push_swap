@@ -1,14 +1,14 @@
 
 #include "push_swap.h"
 
-t_list	*get_ptr_lst(t_stack *stk, int *err)
+t_list	*create_ptr_lst(t_stack *stk, int *err)
 {
 	t_list	*ptr_lst;
 	t_list	*ptr_node;
 	t_list	*nodes;
 
 	ptr_lst = NULL;
-	nodes = stk->nodes;
+	nodes = stk->bottom_node;
 	while(nodes->next != NULL)
 	{
 		// IMPORTANT: here I only malloc the mem of the new node of t_list.

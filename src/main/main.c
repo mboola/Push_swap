@@ -1,3 +1,4 @@
+/*
 
 #include "push_swap.h"
 
@@ -102,3 +103,4 @@ int	main(int argc, char **argv)
 	push_swap(&stk_a, &stk_b, &ptr_lst);
 	return (0);
 }
+*/

@@ -23,7 +23,8 @@ typedef struct t_stack
 {
 	char			name;
 	size_t			n_elem;
-	struct t_list	*nodes;
+	struct t_list	*top_node;
+	struct t_list	*bottom_node;
 }	t_stack;
 
 t_stack *create_stack(char name, int *err);

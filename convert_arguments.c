@@ -24,7 +24,7 @@ static t_list	*create_node(int number, int *err)
 		return (NULL);
 	}
 	node->number = number;
-	node->stack_name = 'a';
+	//node->stack_name = 'a';
 	lst = ft_lstnew(node);
 	if (!lst)
 	{
@@ -34,7 +34,7 @@ static t_list	*create_node(int number, int *err)
 	return (lst);
 }
 
-static t_list	*mat_to_node_lst(char **mat, int len, size_t *n_elem, int *err)
+static t_list	*mat_to_node_lst(char **mat, int len, int *err)
 {
 	t_list	*node_lst;
 	t_list	*node;
@@ -57,7 +57,7 @@ static t_list	*mat_to_node_lst(char **mat, int len, size_t *n_elem, int *err)
 		if (*err)
 			return(clear_node_lst(&node_lst));
 		ft_lstadd_back(&node_lst, node);
-		*n_elem = *n_elem + 1;
+		//*n_elem = *n_elem + 1;
 		i++;
 	}
 	return (node_lst);

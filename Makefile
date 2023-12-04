@@ -1,4 +1,4 @@
-CC = cc
+CC = gcc
 FLAGS = -Wall -Werror -Wextra
 NAME =	push_swap
 
@@ -17,11 +17,8 @@ ${NAME}: ${HEADER} Makefile
 	@echo "Compilation of $@ succesfull"
 
 clean:
-	@rm -f ${OBJS}
-	@rm -f ${BONUS_OBJS}
 
 fclean: clean
-	@rm -f ${LIBFT}
 	@rm -f ${NAME}
 
 re: fclean all

@@ -10,7 +10,9 @@
 void	push_top(t_stack *stk, t_list *node)
 {
 	node->previous = stk->top_node;
-	if (stk->top_node != NULL)
+	if (stk->n_elem == 0)
+		stk->bottom_node = node;
+	else
 		stk->top_node->next = node;
 	(stk->n_elem)++;
 	stk->top_node = node;
@@ -27,7 +29,9 @@ void	push_top(t_stack *stk, t_list *node)
 void	push_bottom(t_stack *stk, t_list *node)
 {
 	node->next = stk->bottom_node;
-	if (stk->bottom_node != NULL)
+	if (stk->n_elem == 0)
+		stk->top_node = node;
+	else
 		stk->bottom_node->previous = node;
 	(stk->n_elem)++;
 	stk->bottom_node = node;

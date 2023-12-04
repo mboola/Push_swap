@@ -1,6 +1,6 @@
 CC 			=	cc
-FLAGS 		=	-Wall -Werror -Wextra
-
+FLAGS 		=	
+#-Wall -Werror -Wextra
 NAME 		=	push_swap
 
 DEBUG		=	-g
@@ -26,7 +26,8 @@ STRCT_CREATN_DIR	=	${SRC}/struct_creation
 STRCT_CREATN_FILES	=	${STRCT_CREATN_DIR}/clear_data.c ${STRCT_CREATN_DIR}/convert_arguments.c \
 						${STRCT_CREATN_DIR}/ft_split.c ${STRCT_CREATN_DIR}/push_swap.c \
 						${STRCT_CREATN_DIR}/quick_sort.c ${STRCT_CREATN_DIR}/core_stack_methods.c \
-						${STRCT_CREATN_DIR}/stack_methods.c ${STRCT_CREATN_DIR}/t_list_functions.c
+						${STRCT_CREATN_DIR}/stack_methods.c ${STRCT_CREATN_DIR}/t_list_functions.c \
+						${STRCT_CREATN_DIR}/ptr_nodes_methods.c
 
 #dir of main used
 MAIN_DIR			=	${SRC}/main

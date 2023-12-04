@@ -52,6 +52,7 @@ t_list	*extract_first(t_list **lst);
 int		get_node_number_from_lst(t_list *ptr_lst);
 
 void	push_argv_in_stack(int argc, char **argv, t_stack *stk, int *err);
+t_list	*create_lst_ptr_to_nodes(t_stack *stk, int *err);
 
 //operations displayed by the terminal
 void	perform_push(t_stack *stk_org, t_stack *stk_dest);

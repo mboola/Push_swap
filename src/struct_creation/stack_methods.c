@@ -1,6 +1,17 @@
 
 #include "push_swap.h"
 
+int		get_node_number_from_lst(t_list *ptr_lst)
+{
+	int	number;
+	t_node	*node;
+
+	node = (t_node *)(ptr_lst->content);
+	return (node->number);
+
+//	number = (*((t_node **)(ptr_lst->content)))->number;
+}
+
 int		get_num_at(t_stack *stk, size_t index, int from_bottom)
 {
 	t_list	*lst;

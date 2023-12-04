@@ -99,14 +99,6 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	}
 }
 
-int		get_node_number_from_lst(t_list *ptr_lst)
-{
-	int	number;
-
-	number = (*((t_node **)(ptr_lst->content)))->number;
-	return (number);
-}
-
 int		ft_atoi(char *str, char **rest)
 {
 	int				num;

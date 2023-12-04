@@ -79,7 +79,7 @@ static void	conv_and_push_elems(char **mat, int len, t_stack *stk, int *err)
 		node = create_node(num, err);
 		if (*err)
 			return ;
-		push_top(stk, node);
+		push_bottom(stk, node);
 		i++;
 	}
 }

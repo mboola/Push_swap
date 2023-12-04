@@ -20,7 +20,7 @@ static void	swap(t_stack *stk)
 
 void	perform_swap(t_stack *stk)
 {
-	printf("p%c\n", stk->name);	//TODO: change to ft_printf();
+	printf("s%c\n", stk->name);	//TODO: change to ft_printf();
 	swap(stk);
 }
 

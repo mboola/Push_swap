@@ -55,6 +55,24 @@ int	can_reverse_rotate(t_stack *stk_a)
 	return (1); 
 }
 
+int	is_bottom_higher(t_stack *stk_a)
+{
+	int		higher;
+	size_t	i;
+
+	if (stk_a->n_elem < 2)
+		return (0);
+	higher = get_num_at(stk_a, 0, 1);
+	i = 1;
+	while (i < stk_a->n_elem)
+	{
+		if (higher < get_num_at(stk_a, i, 1))
+			return (0);
+		i++;
+	}
+	return (1); 
+}
+
 //------------------------------------------------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! IDK
 /*
  *	Used to know if the top element of the stack is lower than the others.
@@ -76,3 +94,5 @@ int	can_push(t_stack *stk_a)
 	}
 	return (1); 
 }
+
+

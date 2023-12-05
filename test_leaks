@@ -1,0 +1,15 @@
+valgrind ./push_swap
+valgrind ./push_swap    2
+valgrind ./push_swap                                11 2
+valgrind ./push_swap ""
+valgrind ./push_swap "" ""
+valgrind ./push_swap "" "" ""
+valgrind ./push_swap "1" ""
+valgrind ./push_swap "1" "2" ""
+valgrind ./push_swap "1" "2" "a"
+valgrind ./push_swap "1a"
+valgrind ./push_swap "1" "2a"
+
+valgrind ./push_swap 1 2
+valgrind ./push_swap "1 2"
+valgrind ./push_swap "2 1"

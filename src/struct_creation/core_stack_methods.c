@@ -55,6 +55,8 @@ t_list	*pop_top(t_stack *stk)
 	(stk->n_elem)--;
 	if (stk->n_elem == 0)
 		stk->bottom_node = NULL;
+	else
+		stk->top_node->next = NULL;
 	top_node->previous = NULL;
 	top_node->next = NULL; //technically not necessary
 	return (top_node);
@@ -76,6 +78,8 @@ t_list	*pop_bottom(t_stack *stk)
 	(stk->n_elem)--;
 	if (stk->n_elem == 0)
 		stk->top_node = NULL;
+	else
+		stk->bottom_node->previous = NULL;
 	bottom_node->previous = NULL;	//technically not necessary
 	bottom_node->next = NULL;
 	return (bottom_node);

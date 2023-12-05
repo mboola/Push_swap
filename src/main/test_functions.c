@@ -72,13 +72,13 @@ int	main(int argc, char **argv)
 	stk_b = create_stack('b', &err);
 	if (err)
 	{
-		printf("Error with creation?!!wtf\n");
+		printf("Error\n");
 		return (clear_and_exit(&stk_a, &stk_b));
 	}
 	push_argv_in_stack(argc, argv, stk_a, &err);
 	if (err)
 	{
-		printf("Arguments not correct.\n");
+		printf("Error\n");
 		return (clear_and_exit(&stk_a, &stk_b));
 	}
 	//to see if all goes as expected
@@ -87,13 +87,13 @@ int	main(int argc, char **argv)
 	ptr_to_nodes = create_lst_ptr_to_nodes(stk_a, &err);		//this creates a t_list of pointers to elems of stack_a->nodes
 	if (err)
 	{
-		printf("Error creating list of pointers.\n");
+		printf("Error\n");
 		return (clear_and_exit(&stk_a, &stk_b));
 	}
 	ptr_to_nodes = quick_sort(ptr_to_nodes, &err);
 	if (err)
 	{
-		printf("Error repeated number as input\n");
+		printf("Error\n");
 		return (clear_and_exit(&stk_a, &stk_b));
 	}
 	//print_ptr_lst(ptr_to_nodes); //works

@@ -1,6 +1,5 @@
 CC 			=	cc
-FLAGS 		=	
-#-Wall -Werror -Wextra
+FLAGS 		=	-Wall #-Werror -Wextra
 NAME 		=	push_swap
 
 DEBUG		=	-g

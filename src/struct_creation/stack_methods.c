@@ -4,10 +4,11 @@
 int		get_node_number_from_lst(t_list *ptr_lst)
 {
 	int	number;
-	t_node	*node;
+	t_node	**node;
 
-	node = (t_node *)(ptr_lst->content);
-	return (node->number);
+	node = (t_node **)(ptr_lst->content);
+	number = (*node)->number;
+	return (number);
 
 //	number = (*((t_node **)(ptr_lst->content)))->number;
 }

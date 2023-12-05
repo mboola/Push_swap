@@ -32,10 +32,10 @@ static int	distribute_elem(t_list **first, t_list **second, t_list **pivot, t_li
 
 	if (*lst == NULL || *pivot == NULL)
 		return (0);
-	pivot_num = get_node_number_from_lst(*pivot);
+	pivot_num = get_int_from_ptr_lst(*pivot);
 	while ((*lst)->next != NULL)
 	{
-		current_number = get_node_number_from_lst(*lst);
+		current_number = get_int_from_ptr_lst(*lst);
 		if (current_number < pivot_num)
 			ft_lstadd_back(first, extract_first(lst));
 		else if (current_number > pivot_num)
@@ -43,7 +43,7 @@ static int	distribute_elem(t_list **first, t_list **second, t_list **pivot, t_li
 		else
 			return (clear_all(first, second, pivot, lst));
 	}
-	current_number = get_node_number_from_lst(*lst);
+	current_number = get_int_from_ptr_lst(*lst);
 	if (current_number < pivot_num)
 		ft_lstadd_back(first, extract_first(lst));
 	else if (current_number > pivot_num)

@@ -1,6 +1,34 @@
 
 #include "push_swap.h"
 
+//if going down is the fastest path it returns 1, if not returns 0
+int	find_shortest_path(t_stack *stk, t_list *node)
+{
+	int		steps_r;
+	int		steps_rr;
+	t_list	*lst;
+	t_list	*tmp;
+
+	steps_rr = 0;
+	steps_r = 0;
+	lst = (t_list *)(node->content);
+	while(lst->next != NULL)
+	{
+		lst = lst->next;
+		steps_rr++;
+	}
+	steps_rr++;
+	lst = (t_list *)(node->content);
+	while(lst->previous != NULL)
+	{
+		lst = lst->previous;
+		steps_r++;
+	}
+	if (steps_rr < steps_r)
+		return (1);
+	return (0);
+}
+
 int	get_value_stk(t_list *stk_lst)
 {
 	int	number;

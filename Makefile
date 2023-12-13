@@ -30,15 +30,21 @@ STRCT_CREATN_FILES	=	${STRCT_CREATN_DIR}/clear_data.c ${STRCT_CREATN_DIR}/conver
 
 #dir of main used
 MAIN_DIR			=	${SRC}/main
-MAIN_FILES			=	${MAIN_DIR}/test_functions.c
+MAIN_FILES			=	${MAIN_DIR}/main.c
+TESTER_MAIN			=	${MAIN_DIR}/test_functions.c
 
 ALL_FILES			=	${OPERATION_FILES} ${SORT_ALGRTHM_FILES} ${STRCT_CREATN_FILES} ${MAIN_FILES}
+TEST_FILES			=	${OPERATION_FILES} ${SORT_ALGRTHM_FILES} ${STRCT_CREATN_FILES} ${TESTER_MAIN}
 
 HEADER				=	${INCLUDES}/push_swap.h
 
 # RULES
 
 all: ${NAME}
+
+test:
+	${CC} ${FLAGS} -I ${INCLUDES} ${TEST_FILES} -o $@ ${DEBUG}
+	@echo "Compilation with main of $@ succesfull"
 
 ${NAME}:
 	${CC} ${FLAGS} -I ${INCLUDES} ${ALL_FILES} -o $@ ${DEBUG}

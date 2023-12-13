@@ -1,11 +1,28 @@
 
 #include "push_swap.h"
 
+int		find_inside_lst(t_list *lst, int num)
+{
+	int	i;
+
+	i = 0;
+	while (get_value_lst(lst) != num)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (i);
+}
+
 int		get_value_lst(t_list *ptr_lst)
 {
-	int	number;
+	int		number;
+	t_list	*lst;
+	t_node	*node;
 
-	number = (*((t_node **)(ptr_lst->content)))->number;
+	lst = (t_list *)(ptr_lst->content);
+	node = (t_node *)(lst->content);
+	number = node->number;
 	return (number);
 }
 
@@ -35,7 +52,7 @@ t_list	*create_lst_ptr_to_nodes(t_stack *stk, int *err)
 		// IMPORTANT: here I only malloc the mem of the new node of t_list.
 		// The content of this node will be a the memory address of the content of our t_list nodes.
 		// This memory address will store a pointer t_node with a number and a stack.
-		ptr_node = ft_lstnew(&(nodes->content));	//nodes->content is the (num, stack)
+		ptr_node = ft_lstnew(nodes);	//nodes->content is lst node that has content (num and name) and next and previous
 		if (!ptr_node)
 		{
 			*err = 1;

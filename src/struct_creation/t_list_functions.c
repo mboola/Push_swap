@@ -73,6 +73,67 @@ t_list	*extract_first(t_list **lst)
 	return (first);
 }
 
+//should work fine except NULL cases and weird indexes
+t_list	*extract_n(t_list **lst, int index)
+{
+	int		i;
+	t_list	*tmp;
+	t_list	*previous;
+	t_list	*next;
+
+	if (index <= 0)
+		return (extract_first(lst));
+	i = 0;
+	tmp = *lst;
+	while (i < index && tmp->next != NULL)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	if (i == 0)
+	{
+		tmp = *lst;
+		*lst = NULL;
+		return (tmp);
+	}
+	previous = tmp->previous;
+	next = tmp->next;
+	previous->next = next;
+	if (next != NULL)
+		next->previous = previous;
+	tmp->previous = NULL;
+	tmp->next = NULL;
+	return (tmp);
+}
+
+void	ft_lstadd_n(t_list **lst, t_list *node, int index)
+{
+	int		i;
+	t_list	*tmp;
+	t_list	*previous;
+	t_list	*next;
+
+	if (index <= 0)
+	{
+		ft_lstadd_front(lst, node);
+		return ;
+	}
+	i = 0;
+	tmp = *lst;
+	while (i < index - 1 && tmp->next != NULL)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	previous = tmp;
+	next = tmp->next;
+	previous->next = node;
+	if (next != NULL)
+		next->previous = node;
+	node->previous = previous;
+	node->next = next;
+}
+
 t_list	*ft_lstlast(t_list *lst)
 {
 	if (lst == NULL)
@@ -80,6 +141,20 @@ t_list	*ft_lstlast(t_list *lst)
 	while (lst->next != NULL)
 		lst = lst->next;
 	return (lst);
+}
+
+void	ft_lstadd_front(t_list **lst, t_list *new)
+{
+	if (lst == NULL || new == NULL)
+		return ;
+	if (*lst == NULL)
+		*lst = new;
+	else
+	{
+		new->next = *lst;
+		(*lst)->previous = new;
+		*lst = new;
+	}
 }
 
 void	ft_lstadd_back(t_list **lst, t_list *new)

@@ -5,7 +5,6 @@ static int	clear_and_exit(t_stack **stk_a, t_stack **stk_b)
 {
 	clear_stack(stk_a);
 	clear_stack(stk_b);
-	//printf("Error\n");
 	return (0);
 }
 
@@ -96,6 +95,20 @@ int	main(int argc, char **argv)
 		printf("Error\n");
 		return (clear_and_exit(&stk_a, &stk_b));
 	}
+
+	//test
+	printf("List sorted:\n");
+	print_ptr_lst(ptr_to_nodes);
+	t_list *node = extract_n(&ptr_to_nodes, 1);
+	printf("List with second element extracted:\n");
+	print_ptr_lst(ptr_to_nodes);
+	printf("Element extracted:\n");
+	print_ptr_lst(node);
+	printf("List with second element added again:\n");
+	ft_lstadd_n(&ptr_to_nodes, node, 1);
+	print_ptr_lst(ptr_to_nodes);
+	//ftest
+
 	//print_ptr_lst(ptr_to_nodes); //works
 	//print_reverse(ptr_to_nodes); //works
 	//print_lst(stk_a->bottom_node);

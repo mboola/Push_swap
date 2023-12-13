@@ -5,7 +5,7 @@
  *	Swaps the first two elements of the stack. If the stack has less than
  *	two elements, it does nothing.
  */
-static void	swap(t_stack *stk)
+void	swap(t_stack *stk)
 {
 	t_list	*first;
 	t_list	*second;

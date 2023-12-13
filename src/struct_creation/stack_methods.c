@@ -1,15 +1,7 @@
 
 #include "push_swap.h"
 
-int		get_int_from_ptr_lst(t_list *ptr_lst)
-{
-	int	number;
-
-	number = (*((t_node **)(ptr_lst->content)))->number;
-	return (number);
-}
-
-static int	get_int_from_stk_lst(t_list *stk_lst)
+int	get_value_stk(t_list *stk_lst)
 {
 	int	number;
 
@@ -44,8 +36,19 @@ int		get_num_at(t_stack *stk, size_t index, int from_bottom)
 			lst = lst->previous;
 			i++;
 		}
-	return (get_int_from_stk_lst(lst));
+	return (get_value_stk(lst));
 }
+
+int	get_bottom_value(t_stack *stk)
+{
+	return (get_value_stk(stk->bottom_node));
+}
+
+int	get_top_value(t_stack *stk)
+{
+	return (get_value_stk(stk->top_node));
+}
+
 
 t_stack *create_stack(char name, int *err)
 {

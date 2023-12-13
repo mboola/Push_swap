@@ -6,9 +6,17 @@
  */
 int		can_swap(t_stack *stk_a)
 {
+	t_list	*lst;
+	int		first;
+	int		second;
+
 	if (stk_a->n_elem < 2)
 		return (0);
-	if (get_num_at(stk_a, 0, 0) > get_num_at(stk_a, 1, 0))
+	lst = stk_a->top_node;
+	first = get_value_stk(lst);
+	lst = lst->previous;
+	second = get_value_stk(lst);
+	if (first > second)
 		return (1);
 	return (0);
 }

@@ -4,7 +4,7 @@
 /*
  *	Function used to sort 5 elements.
  */
-void	sort_5(t_stack *stk_a, t_stack *stk_b)
+void	sort_5(t_stack *stk_a, t_stack *stk_b, t_list *lst)
 {
 	//here the idea is getting the lower element or greater or whatever and
 	//putting it in stack B, then sort stack A with sort_3 and then put back that element from

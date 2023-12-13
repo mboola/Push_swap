@@ -1,6 +1,24 @@
 
 #include "push_swap.h"
 
+int		get_value_lst(t_list *ptr_lst)
+{
+	int	number;
+
+	number = (*((t_node **)(ptr_lst->content)))->number;
+	return (number);
+}
+
+int		get_higher_value(t_list *lst)
+{
+	return (get_value_lst(ft_lstlast(lst)));
+}
+
+int		get_lower_value(t_list *lst)
+{
+	return (get_value_lst(lst));
+}
+
 /*
  *	Creates a linked list of pointers to nodes of a stack.
  */

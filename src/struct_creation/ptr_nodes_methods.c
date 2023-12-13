@@ -26,6 +26,28 @@ int		get_value_lst(t_list *ptr_lst)
 	return (number);
 }
 
+void	put_elem_on_top(t_stack *stk, t_list *lst)
+{
+	if (find_shortest_path(stk, lst))
+			while (get_top_value(stk) != get_lower_value(lst))
+				perform_reverse_rotate(stk);
+		else
+			while (get_top_value(stk) != get_lower_value(lst))
+				perform_rotate(stk);
+}
+
+int		get_stk_lst(t_list *ptr_lst)
+{
+	int		name;
+	t_list	*lst;
+	t_node	*node;
+
+	lst = (t_list *)(ptr_lst->content);
+	node = (t_node *)(lst->content);
+	name = node->name;
+	return (name);
+}
+
 int		get_higher_value(t_list *lst)
 {
 	return (get_value_lst(ft_lstlast(lst)));

@@ -77,6 +77,7 @@ int		is_sorted(t_stack *stk);
 int		can_swap(t_stack *stk);
 int		can_reverse_rotate(t_stack *stk);
 int		find_shortest_path(t_stack *stk, t_list *node);
+void	put_elem_on_top(t_stack *stk, t_list *lst);
 
 //operations displayed by the terminal
 void	perform_push(t_stack *stk_org, t_stack *stk_dest);
@@ -100,6 +101,7 @@ int		get_higher_value(t_list *lst);
 int		get_lower_value(t_list *lst);
 int		get_value_stk(t_list *stk_lst);
 int		get_value_lst(t_list *ptr_lst);
+int		get_stk_lst(t_list *ptr_lst);
 
 //??
 int		get_num_at(t_stack *stk, size_t index, int from_bottom);
@@ -110,5 +112,7 @@ void	sort_3(t_stack *stk_a, t_list *lst);
 void	sort_4(t_stack *stk_a, t_stack *stk_b, t_list *lst);
 void	sort_5(t_stack *stk_a, t_stack *stk_b, t_list *lst);
 void	sort_n(t_stack *stk_a, t_stack *stk_b, t_list *lst);
+
+void	reverse_sort_2(t_stack *stk);
 
 #endif

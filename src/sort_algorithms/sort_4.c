@@ -55,12 +55,7 @@ void	sort_4(t_stack *stk_a, t_stack *stk_b, t_list *lst)
 	else
 	{
 		//find lower and put it on top from the lowest path
-		if (find_shortest_path(stk_a, lst))
-			while (get_top_value(stk_a) != get_lower_value(lst))
-				perform_reverse_rotate(stk_a);
-		else
-			while (get_top_value(stk_a) != get_lower_value(lst))
-				perform_rotate(stk_a);
+		put_elem_on_top(stk_a, lst);
 		perform_push(stk_a, stk_b);
 		node = extract_first(&lst);
 		sort_3(stk_a, lst);

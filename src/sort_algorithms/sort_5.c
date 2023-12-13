@@ -6,11 +6,36 @@
  */
 void	sort_5(t_stack *stk_a, t_stack *stk_b, t_list *lst)
 {
-	//here the idea is getting the lower element or greater or whatever and
-	//putting it in stack B, then sort stack A with sort_3 and then put back that element from
-	//B to A again on top and move it on bottom if necessary.
-	//WARNING: there are cases when this is not necessary and only a swap, rotate or reverse rotate
-	//are necessary. check those cases and do whatever.
-	if (stk_a->n_elem == stk_b->n_elem)
-		return ;
+	if (find_shortest_path(stk_a, lst))
+	{
+		while (get_top_value(stk_a) != get_lower_value(lst))
+		{
+			if (get_top_value(stk_a) == get_value_lst(lst->next))
+				perform_push(stk_a, stk_b);
+			perform_reverse_rotate(stk_a);
+		}
+	}
+	else
+	{
+		while (get_top_value(stk_a) != get_lower_value(lst))
+		{
+			if (get_top_value(stk_a) == get_value_lst(lst->next))
+				perform_push(stk_a, stk_b);
+			else
+				perform_rotate(stk_a);
+		}
+	}
+	perform_push(stk_a, stk_b);
+	if (get_stk_lst(lst->next) == 'a')
+	{
+		put_elem_on_top(stk_a, lst->next);
+		perform_push(stk_a, stk_b);
+	}
+
+	//separate lst into two
+	sort_3(stk_a, );
+	reverse_sort_2(stk_b);
+
+	perform_push(stk_b, stk_a);
+	perform_push(stk_b, stk_a);
 }

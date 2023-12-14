@@ -21,3 +21,9 @@ valgrind ./push_swap "3 2 1"
 valgrind ./push_swap "1 2 3 4"
 valgrind ./push_swap "1 4 3 2"
 valgrind ./push_swap "4 1 3 2"
+
+valgrind ./push_swap "4 2 3 1 5"
+valgrind ./push_swap "4 2 3 5 1"
+
+valgrind ./push_swap "5 4 3 1 2"
+valgrind ./push_swap "5 4 3 2 1"

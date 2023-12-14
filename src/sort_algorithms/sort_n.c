@@ -6,11 +6,35 @@
  */
 void	sort_n(t_stack *stk_a, t_stack *stk_b, t_list *lst)
 {
-	//here the idea is getting the lower element or greater or whatever and
-	//putting it in stack B, then sort stack A with sort_3 and then put back that element from
-	//B to A again on top and move it on bottom if necessary.
-	//WARNING: there are cases when this is not necessary and only a swap, rotate or reverse rotate
-	//are necessary. check those cases and do whatever.
-	if (stk_a->n_elem == stk_b->n_elem && lst == NULL)
+	t_list	*curr_value;
+
+	curr_value = lst;
+	if (is_sorted(stk_a))
 		return ;
+	//first we get the lowest number on top with the shortest path, putting all on b
+	if (find_shortest_path(stk_a, lst))
+		while (get_top_value(stk_a) != get_lower_value(lst))
+			perform_push(stk_a, stk_b);
+	else
+		while (get_top_value(stk_a) != get_lower_value(lst))
+			perform_reverse_rotate(stk_a);
+	perform_rotate(stk_a);
+	while (!is_sorted(stk_a) || stk_b->n_elem != 0)
+	{
+		curr_value = curr_value->next;
+		if (get_stk_lst(curr_value) == 'a')
+			while (get_top_value(stk_a) != get_lower_value(curr_value))
+				perform_push(stk_a, stk_b);
+		else
+		{
+			if (find_shortest_path(stk_b, curr_value))
+				while (get_top_value(stk_b) != get_lower_value(curr_value))
+					perform_reverse_rotate(stk_b);
+			else
+				while (get_top_value(stk_b) != get_lower_value(curr_value))
+					perform_rotate(stk_b);
+			perform_push(stk_b, stk_a);
+		}
+		perform_rotate(stk_a);
+	}
 }

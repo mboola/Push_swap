@@ -44,7 +44,7 @@ int		get_stk_lst(t_list *ptr_lst)
 
 	lst = (t_list *)(ptr_lst->content);
 	node = (t_node *)(lst->content);
-	name = node->name;
+	name = node->stack_name;
 	return (name);
 }
 

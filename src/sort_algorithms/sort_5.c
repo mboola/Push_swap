@@ -6,6 +6,8 @@
  */
 void	sort_5(t_stack *stk_a, t_stack *stk_b, t_list *lst)
 {
+	t_list	*tmp;
+
 	if (find_shortest_path(stk_a, lst))
 	{
 		while (get_top_value(stk_a) != get_lower_value(lst))
@@ -32,9 +34,15 @@ void	sort_5(t_stack *stk_a, t_stack *stk_b, t_list *lst)
 		perform_push(stk_a, stk_b);
 	}
 
+	tmp = lst->next->next;
+	tmp->previous = NULL;
+	lst->next->next = NULL;
+
 	//separate lst into two
-	sort_3(stk_a, );
+	sort_3(stk_a, tmp);
 	reverse_sort_2(stk_b);
+
+	ft_lstadd_back(&lst, tmp);
 
 	perform_push(stk_b, stk_a);
 	perform_push(stk_b, stk_a);

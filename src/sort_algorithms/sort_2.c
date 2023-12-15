@@ -10,7 +10,7 @@ void	sort_2(t_stack *stk)
 		perform_swap(stk);
 }
 
-void	reverse_sort_2(t_stack *stk)
+void	inverse_sort_2(t_stack *stk)
 {
 	if (!can_swap(stk))
 		perform_swap(stk);

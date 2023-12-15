@@ -6,8 +6,6 @@
  */
 void	sort_5(t_stack *stk_a, t_stack *stk_b, t_list *lst)
 {
-	t_list	*tmp;
-
 	if (is_sorted(stk_a))
 		return ;
 
@@ -37,15 +35,9 @@ void	sort_5(t_stack *stk_a, t_stack *stk_b, t_list *lst)
 		perform_push(stk_a, stk_b);
 	}
 
-	tmp = lst->next->next;
-	tmp->previous = NULL;
-	lst->next->next = NULL;
-
 	//separate lst into two
-	sort_3(stk_a, tmp);
-	reverse_sort_2(stk_b);
-
-	ft_lstadd_back(&lst, tmp);
+	sort_3(stk_a);
+	inverse_sort_2(stk_b);
 
 	perform_push(stk_b, stk_a);
 	perform_push(stk_b, stk_a);

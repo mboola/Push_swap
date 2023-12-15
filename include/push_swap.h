@@ -74,9 +74,11 @@ int		reverse_rotate_sorted(t_stack *stk);
 
 //general use
 int		is_sorted(t_stack *stk);
+int		is_inverse_sorted(t_stack *stk);
+int		find_shortest_path(t_stack *stk, t_list *node);
+
 int		can_swap(t_stack *stk);
 int		can_reverse_rotate(t_stack *stk);
-int		find_shortest_path(t_stack *stk, t_list *node);
 void	put_elem_on_top(t_stack *stk, t_list *lst);
 
 //operations displayed by the terminal
@@ -108,11 +110,13 @@ int		get_num_at(t_stack *stk, size_t index, int from_bottom);
 
 //sorting algorithms
 void	sort_2(t_stack *stk_a);
-void	sort_3(t_stack *stk_a, t_list *lst);
+void	sort_3(t_stack *stk_a);
 void	sort_4(t_stack *stk_a, t_stack *stk_b, t_list *lst);
 void	sort_5(t_stack *stk_a, t_stack *stk_b, t_list *lst);
 void	sort_n(t_stack *stk_a, t_stack *stk_b, t_list *lst);
 
-void	reverse_sort_2(t_stack *stk);
+void	inverse_sort_2(t_stack *stk);
+void	inverse_sort_3(t_stack *stk);
+int		sort_3_less_mov(t_stack *stk);
 
 #endif

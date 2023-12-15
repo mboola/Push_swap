@@ -6,16 +6,12 @@
  */
 void	sort_4(t_stack *stk_a, t_stack *stk_b, t_list *lst)
 {
-	t_list	*node;
-
 	if (is_sorted(stk_a))
 		return ;
 	if (get_lower_value(lst) == get_top_value(stk_a))
 	{
 		perform_push(stk_a, stk_b);
-		node = extract_first(&lst);
-		sort_3(stk_a, lst);
-		ft_lstadd_front(&lst, node);
+		sort_3(stk_a);
 		perform_push(stk_b, stk_a);
 	}
 	else if(get_higher_value(lst) == get_top_value(stk_a))
@@ -23,9 +19,7 @@ void	sort_4(t_stack *stk_a, t_stack *stk_b, t_list *lst)
 		if (!rotate_sorted(stk_a))
 		{
 			perform_push(stk_a, stk_b);
-			node = extract_last(&lst);
-			sort_3(stk_a, lst);
-			ft_lstadd_back(&lst, node);
+			sort_3(stk_a);
 			perform_push(stk_b, stk_a);
 		}
 		perform_rotate(stk_a);
@@ -36,9 +30,7 @@ void	sort_4(t_stack *stk_a, t_stack *stk_b, t_list *lst)
 		if (!is_sorted(stk_a))
 		{
 			perform_push(stk_a, stk_b);
-			node = extract_first(&lst);
-			sort_3(stk_a, lst);
-			ft_lstadd_front(&lst, node);
+			sort_3(stk_a);
 			perform_push(stk_b, stk_a);
 		}
 	}
@@ -46,9 +38,7 @@ void	sort_4(t_stack *stk_a, t_stack *stk_b, t_list *lst)
 	{
 		perform_reverse_rotate(stk_a);
 		perform_push(stk_a, stk_b);
-		node = extract_last(&lst);
-		sort_3(stk_a, lst);
-		ft_lstadd_back(&lst, node);
+		sort_3(stk_a);
 		perform_push(stk_b, stk_a);
 		perform_rotate(stk_a);
 	}
@@ -57,9 +47,7 @@ void	sort_4(t_stack *stk_a, t_stack *stk_b, t_list *lst)
 		//find lower and put it on top from the lowest path
 		put_elem_on_top(stk_a, lst);
 		perform_push(stk_a, stk_b);
-		node = extract_first(&lst);
-		sort_3(stk_a, lst);
-		ft_lstadd_front(&lst, node);
+		sort_3(stk_a);
 		perform_push(stk_b, stk_a);
 	}
 }

@@ -30,6 +30,31 @@ int		can_reverse_rotate(t_stack *stk)
 	return (0);
 }
 
+int		is_inverse_sorted(t_stack *stk)
+{
+	t_list	*lst;
+	int		curr_num;
+	int		last_num;
+
+	if (stk->n_elem < 2)
+		return (1);
+	lst = stk->top_node;
+	last_num = get_value_stk(lst);
+	lst = lst->previous;
+	while (lst->previous != NULL)
+	{
+		curr_num = get_value_stk(lst);
+		if (curr_num > last_num)
+			return (0);
+		last_num = curr_num;
+		lst = lst->previous;
+	}
+	curr_num = get_value_stk(lst);
+	if (curr_num > last_num)
+		return (0);
+	return (1);
+}
+
 /*
  *	Checks if the stack is sorted.
  */

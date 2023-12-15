@@ -7,7 +7,6 @@ int	find_shortest_path(t_stack *stk, t_list *node)
 	int		steps_r;
 	int		steps_rr;
 	t_list	*lst;
-	t_list	*tmp;
 
 	steps_rr = 0;
 	steps_r = 0;

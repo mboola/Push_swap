@@ -12,18 +12,20 @@ int	find_shortest_path(t_stack *stk, t_list *node)
 	steps_rr = 0;
 	steps_r = 0;
 	lst = (t_list *)(node->content);
+	//first we look rotate (up)
 	while(lst->next != NULL)
 	{
 		lst = lst->next;
-		steps_rr++;
+		steps_r++;
 	}
-	steps_rr++;
 	lst = (t_list *)(node->content);
 	while(lst->previous != NULL)
 	{
 		lst = lst->previous;
-		steps_r++;
+		steps_rr++;
 	}
+	steps_rr++;
+	//printf("Steps r are: %d and Steps rr are: %d\n", steps_r, steps_rr);
 	if (steps_rr < steps_r)
 		return (1);
 	return (0);
@@ -76,7 +78,6 @@ int	get_top_value(t_stack *stk)
 {
 	return (get_value_stk(stk->top_node));
 }
-
 
 t_stack *create_stack(char name, int *err)
 {

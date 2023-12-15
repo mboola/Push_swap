@@ -8,6 +8,9 @@ void	sort_5(t_stack *stk_a, t_stack *stk_b, t_list *lst)
 {
 	t_list	*tmp;
 
+	if (is_sorted(stk_a))
+		return ;
+
 	if (find_shortest_path(stk_a, lst))
 	{
 		while (get_top_value(stk_a) != get_lower_value(lst))

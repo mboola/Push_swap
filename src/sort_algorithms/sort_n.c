@@ -248,11 +248,12 @@ int	sort_half(t_stack *stk_a, t_stack *stk_b, t_list *lst)
 	if (stk_b->n_elem == 3)
 	{
 		//and we sort it with the less movements possible
+		/*
 		if (sort_3_less_mov(stk_b))
 		{
 			sort_3(stk_b);
 			return (1);
-		}
+		}*/
 		inverse_sort_3(stk_b);
 		return (0);
 	}
@@ -331,15 +332,8 @@ void	sort_n(t_stack *stk_a, t_stack *stk_b, t_list *lst)
 	//pivot will be the node size/2
 	pivot = get_pivot(lst, size);
 
-	//printf("Pivot: %d\n", get_value_lst(pivot));
-	//print_stacks(stk_a, stk_b, "before separation");
-
-		//--pivot will always stay in the stack where we store the lowest values
-
 	//we push values higher than pivot to stack B to sort them recursively
 	int n_elem = push_higher_values(stk_a, stk_b, pivot);
-
-	//print_stacks(stk_a, stk_b, "after separation");
 
 	//here we separate lst into: first part of lst (with pivot), and second
 	second = pivot->next;

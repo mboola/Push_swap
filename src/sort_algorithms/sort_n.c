@@ -199,6 +199,30 @@ void	rotate_elem(t_stack *stk, int n_elem)
 	}
 }
 
+int	is_range_sorted(t_stack *stk, int n_elem)
+{
+	int		i;
+	int		lower;
+	int		next;
+	t_list	*lst;
+
+	i = 1;
+	lst = stk->top_node;
+	lower = get_value_stk(lst);
+	lst = lst->previous;
+	while (i < n_elem)
+	{
+		next = get_value_stk(lst);
+		if (next > lower)
+			lower = next;
+		else
+			return (0);
+		lst = lst->previous;
+		i++;
+	}
+	return (1);
+}
+
 /*
  *	This will be a quick_sort with stacks.
  *	Returns if it is sorted normally (1)
@@ -258,30 +282,26 @@ int	sort_half(t_stack *stk_a, t_stack *stk_b, t_list *lst)
 		
 		rotate_elem(stk_a, pushed_values);
 
-		// TODO: is the next range sorted? (pivot to end) (n_elem)
-		//if it is
-			//rotate_elem(stk_a, n_elem);
-		//else
-			//push n_elem to stk b and sort them
-			//sorted = sort_half(stk_a, stk_b, pivot);
-
-		int i = 0;
-		while (i < n_elem)
-		{
-			perform_push(stk_a, stk_b);
-			i++;
-		}
-
-		sorted = sort_half(stk_a, stk_b, tmp);
-		
-		if (sorted)
-			pushed_values = push_values_sorted(stk_b, stk_a, 0);
+		if (is_range_sorted(stk_a, n_elem))
+			rotate_elem(stk_a, n_elem);
 		else
-			pushed_values = push_values_inverse_sorted(stk_b, stk_a, 0);
+		{
+			int i = 0;
+			while (i < n_elem)
+			{
+				perform_push(stk_a, stk_b);
+				i++;
+			}
+			sorted = sort_half(stk_a, stk_b, tmp);
+			if (sorted)
+				pushed_values = push_values_sorted(stk_b, stk_a, 0);
+			else
+				pushed_values = push_values_inverse_sorted(stk_b, stk_a, 0);
 
-		//and rotate them if not sorted
-		if (!is_sorted(stk_a))
-			rotate_elem(stk_a, pushed_values);
+			//and rotate them if not sorted
+			if (!is_sorted(stk_a))
+				rotate_elem(stk_a, pushed_values);
+		}
 
 		//here everything should be sorted
 		ft_lstadd_back(&tmp, pivot);

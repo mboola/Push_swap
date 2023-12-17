@@ -272,7 +272,7 @@ int	sort_half(t_stack *stk_a, t_stack *stk_b, t_list *lst)
 			i++;
 		}
 
-		sorted = sort_half(stk_a, stk_b, pivot);
+		sorted = sort_half(stk_a, stk_b, tmp);
 		
 		if (sorted)
 			pushed_values = push_values_sorted(stk_b, stk_a, 0);
@@ -371,11 +371,14 @@ void	sort_n(t_stack *stk_a, t_stack *stk_b, t_list *lst)
 		pushed_values = push_values_inverse_sorted(stk_b, stk_a, 0);
 
 	//and we put the lower elements on top
-	//rotate_elem(stk_a, pushed_values);
+	rotate_elem(stk_a, pushed_values);
+
+	while (get_top_value(stk_a) != get_lower_value(lst))
+		perform_rotate(stk_a);
 
 	//here I put back lst and second
 	ft_lstadd_back(&lst, pivot);
 
 	//here all should be sorted
-	print_stacks(stk_a, stk_b, "Sorted");
+	//print_stacks(stk_a, stk_b, "Sorted");
 }

@@ -3,7 +3,6 @@
 # define PUSH_SWAP_H
 
 # include <stdlib.h>
-# include <stdio.h>		//remove this
 # include <unistd.h>
 
 # ifndef MAX_INT
@@ -126,5 +125,7 @@ void	sort_n(t_stack *stk_a, t_stack *stk_b, t_list *lst);
 void	inverse_sort_2(t_stack *stk);
 void	inverse_sort_3(t_stack *stk);
 int		sort_3_less_mov(t_stack *stk);
+
+int		ft_printf(char const *str, ...);
 
 #endif

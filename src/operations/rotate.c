@@ -1,4 +1,4 @@
-
+//THIS PASSES THE NORMINETTE!!
 #include "push_swap.h"
 
 /*
@@ -16,13 +16,13 @@ void	rotate(t_stack *stk)
 
 void	perform_rotate(t_stack *stk)
 {
-	printf("r%c\n", stk->name);	//TODO: change to ft_printf();
+	ft_printf("r%c\n", stk->name);
 	rotate(stk);
 }
 
 void	perform_double_rotate(t_stack *stk_a, t_stack *stk_b)
 {
-	printf("rr\n");	//TODO: change to ft_printf();
+	ft_printf("rr\n");
 	rotate(stk_a);
 	rotate(stk_b);
 }

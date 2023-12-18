@@ -1,8 +1,9 @@
-
+//THIS PASSES THE NORMINETTE!!
 #include "push_swap.h"
 
 /*
- *	Take the first element at the top of stk_origin and put it at the top of stk_destination.
+ *	Take the first element at the top of stk_origin 
+ *	and put it at the top of stk_destination.
  *	Do nothing if stk_origin is empty.
  */
 static void	push(t_stack *stk_org, t_stack *stk_dest)
@@ -17,6 +18,6 @@ static void	push(t_stack *stk_org, t_stack *stk_dest)
 
 void	perform_push(t_stack *stk_org, t_stack *stk_dest)
 {
-	printf("p%c\n", stk_dest->name);	//TODO: change to ft_printf();
+	ft_printf("p%c\n", stk_dest->name);
 	push(stk_org, stk_dest);
 }

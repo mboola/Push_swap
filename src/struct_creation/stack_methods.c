@@ -44,10 +44,7 @@ int		get_num_at(t_stack *stk, size_t index, int from_bottom)
 	size_t	i;
 
 	if (stk->n_elem < index)
-	{
-		printf("Index greater than n_elem when searching nodes from stack");
 		return (0);
-	}
 	if (from_bottom)
 		lst = stk->bottom_node;
 	else

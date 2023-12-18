@@ -1,4 +1,4 @@
-
+//THIS PASSES THE NORMINETTE!!
 #include "push_swap.h"
 
 /*
@@ -16,7 +16,6 @@ void	push_top(t_stack *stk, t_list *node)
 		stk->top_node->next = node;
 	(stk->n_elem)++;
 	stk->top_node = node;
-	//this is exclusive of push_swap, not of this struct
 	((t_node *)(node->content))->stack_name = stk->name;
 }
 
@@ -35,7 +34,6 @@ void	push_bottom(t_stack *stk, t_list *node)
 		stk->bottom_node->previous = node;
 	(stk->n_elem)++;
 	stk->bottom_node = node;
-	//this is exclusive of push_swap, not of this struct
 	((t_node *)(node->content))->stack_name = stk->name;
 }
 
@@ -58,7 +56,7 @@ t_list	*pop_top(t_stack *stk)
 	else
 		stk->top_node->next = NULL;
 	top_node->previous = NULL;
-	top_node->next = NULL; //technically not necessary
+	top_node->next = NULL;
 	return (top_node);
 }
 
@@ -80,7 +78,7 @@ t_list	*pop_bottom(t_stack *stk)
 		stk->top_node = NULL;
 	else
 		stk->bottom_node->previous = NULL;
-	bottom_node->previous = NULL;	//technically not necessary
+	bottom_node->previous = NULL;
 	bottom_node->next = NULL;
 	return (bottom_node);
 }

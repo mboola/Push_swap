@@ -3,7 +3,7 @@
 
 static int	clear_and_exit(t_stack **stk_a, t_stack **stk_b)
 {
-	printf(ERROR_MSG);
+	ft_printf(ERROR_MSG);
 	clear_stack(stk_a);
 	clear_stack(stk_b);
 	return (0);

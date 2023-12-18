@@ -1,4 +1,4 @@
-
+//THIS PASSES THE NORMINETTE!!
 #include "push_swap.h"
 
 /*
@@ -20,13 +20,13 @@ void	swap(t_stack *stk)
 
 void	perform_swap(t_stack *stk)
 {
-	printf("s%c\n", stk->name);	//TODO: change to ft_printf();
+	ft_printf("s%c\n", stk->name);
 	swap(stk);
 }
 
 void	perform_double_swap(t_stack *stk_a, t_stack *stk_b)
 {
-	printf("ss\n");	//TODO: change to ft_printf();
+	ft_printf("ss\n");
 	swap(stk_a);
 	swap(stk_b);
 }

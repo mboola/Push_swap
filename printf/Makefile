@@ -12,7 +12,7 @@ FILES			=	${SRCS}/ft_conversions.c ${SRCS}/ft_putnbrbase_err.c ${SRCS}/ft_printf
 OBJS			=	${FILES:.c=.o}
 
 %.o: %.c ${HEADER} Makefile
-	${CC} ${CFLAGS} -I ${SRCS} -c $< -o $@
+	@${CC} ${CFLAGS} -I ${SRCS} -c $< -o $@
 
 # RULES
 

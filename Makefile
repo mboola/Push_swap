@@ -1,8 +1,12 @@
 CC 			=	cc
 FLAGS 		=	-Wall -Werror -Wextra
-NAME 		=	push_swap
 
 DEBUG		=	-g
+
+NAME 		=	push_swap
+PRINTF		=	libftprintf.a
+
+LIBRARIES	=	-L${STATIC_LIBS} -lftprintf
 
 #---FILES and their directories---
 #parent dir
@@ -11,6 +15,8 @@ INCLUDES	=	include
 
 PRINTF_SRC	=	printf
 LIBFT_SRC	=	libft
+
+STATIC_LIBS	=	libs
 
 #dir of operations displayed by the terminal
 OPERATIONS_DIR		=	${SRC}/operations
@@ -40,21 +46,33 @@ MAIN_DIR			=	${SRC}/main
 MAIN_FILES			=	${MAIN_DIR}/main.c
 
 ALL_FILES			=	${OPERATIONS_FILES} ${SORT_ALGRTHM_FILES} ${STRCT_CREATN_FILES} ${QUICK_SORT_FILES} ${MAIN_FILES}
+OBJS				=	${ALL_FILES:.c=.o}
 
 HEADER				=	${INCLUDES}/push_swap.h
 
+%.o: %.c ${HEADER} Makefile
+	${CC} ${FLAGS} -I ${INCLUDES} -c $< -o $@ ${DEBUG}
+
 # RULES
 
-all: ${NAME}
+all: ${PRINTF} ${NAME}
 
-${NAME}:
-	${CC} ${FLAGS} -I ${INCLUDES} ${ALL_FILES} -o $@ ${DEBUG}
+${PRINTF}:
+	@make -C ${PRINTF_SRC}
+	cp ${PRINTF_SRC}/${PRINTF} ${STATIC_LIBS}
+
+${NAME}: ${OBJS}
+	${CC} $^ -o $@ ${LIBRARIES}
 	@echo "Compilation with main of $@ succesfull"
-
+	
 clean:
+	@rm -f ${OBJS}
+	@make clean -C ${PRINTF_SRC}
 
 fclean: clean
 	@rm -f ${NAME}
+	@make fclean -C ${PRINTF_SRC}
+	@rm ${STATIC_LIBS}/${PRINTF}
 
 re: fclean all
 	

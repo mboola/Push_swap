@@ -174,10 +174,12 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	}
 }
 
-int		ft_atoi(char *str, char **rest)
+int		ft_atoi(char *str, char *err)
 {
-	int				num;
-	int				n;
+	unsigned int	num;
+	unsigned int	min;
+	int				final_num;
+	char			n;
 
 	while (*str == '\f' || *str == '\n' || *str == '\r'
 		|| *str == '\t' || *str == '\v' || *str == ' ')
@@ -192,12 +194,24 @@ int		ft_atoi(char *str, char **rest)
 	while (*str == '0')
 		str++;
 	num = 0;
+	min = 0;
 	while (*str >= '0' && *str <= '9')
 	{
 		num = num * 10 + (*str - '0');
+		if (num > min)
+			min = num;
+		else
+		{
+			*err = 1;
+			return (0);
+		}
 		str++;
 	}
-	*rest = str;
-	num *= n;
-	return (num);
+	if ((num - 1 > MAX_INT && n == -1) || (num > MAX_INT) || *str != '\0')
+	{
+		*err = 1;
+		return (0);
+	}
+	final_num = num * n;
+	return (final_num);
 }

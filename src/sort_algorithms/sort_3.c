@@ -1,4 +1,4 @@
-
+//THIS PASSES THE NORMINETTE!!
 #include "push_swap.h"
 
 static void	init_values(int *t_val, int *b_val, int *m_val, t_stack *stk)
@@ -8,144 +8,62 @@ static void	init_values(int *t_val, int *b_val, int *m_val, t_stack *stk)
 	*m_val = get_value_stk(stk->bottom_node->next);
 }
 
+static int	check_first(int val[], t_stack *stk, char is_inv)
+{
+	if ((val[0] < val[2] && !is_inv) || (val[0] > val[2] && is_inv))
+	{
+		if ((val[0] < val[1] && !is_inv) || (val[0] > val[1] && is_inv))
+		{
+			if ((val[2] > val[1] && !is_inv) || (val[2] < val[1] && is_inv))
+			{
+				perform_swap(stk);
+				perform_rotate(stk);
+			}
+		}
+		else
+			perform_reverse_rotate(stk);
+		return (1);
+	}
+	return (0);
+}
+
+static void	check_second(int val[], t_stack *stk, char is_inv)
+{
+	if ((val[0] < val[1] && !is_inv) || (val[0] > val[1] && is_inv))
+		perform_swap(stk);
+	else
+	{
+		if ((val[2] > val[1] && !is_inv) || (val[2] < val[1] && is_inv))
+		{
+			perform_swap(stk);
+			perform_reverse_rotate(stk);
+		}
+		else
+			perform_rotate(stk);
+	}
+}
+
 /*
  *	Function used to sort 3 elements.
+ *	I don't like how this ended but it was necessary to pass the norminette.
  */
 void	sort_3(t_stack *stk)
 {
-	int	top_value;
-	int	bottom_value;
-	int	middle_value;
+	int	values[3];
 
-	init_values(&top_value, &bottom_value, &middle_value, stk);
-	if (top_value < middle_value)
-	{
-		if (top_value < bottom_value)
-		{
-			if (middle_value > bottom_value)
-			{
-				perform_swap(stk);
-				perform_rotate(stk);
-			}
-		}
-		else
-			perform_reverse_rotate(stk);
-	}
-	else
-	{
-		if (top_value < bottom_value)
-			perform_swap(stk);
-		else
-		{
-			if (middle_value > bottom_value)
-			{
-				perform_swap(stk);
-				perform_reverse_rotate(stk);
-			}
-			else
-				perform_rotate(stk);
-		}
-	}
+	init_values(&values[0], &values[1], &values[2], stk);
+	if (!check_first(values, stk, 0))
+		check_second(values, stk, 0);
 }
 
+/*
+ *	Function used to inverse sort 3 elements.
+ */
 void	inverse_sort_3(t_stack *stk)
 {
-	int	top_value;
-	int	bottom_value;
-	int	middle_value;
+	int	values[3];
 
-	init_values(&top_value, &bottom_value, &middle_value, stk);
-	if (top_value > middle_value)
-	{
-		if (top_value > bottom_value)
-		{
-			if (middle_value < bottom_value)
-			{
-				perform_swap(stk);
-				perform_rotate(stk);
-			}
-		}
-		else
-			perform_reverse_rotate(stk);
-	}
-	else
-	{
-		if (top_value > bottom_value)
-			perform_swap(stk);
-		else
-		{
-			if (middle_value < bottom_value)
-			{
-				perform_swap(stk);
-				perform_reverse_rotate(stk);
-			}
-			else
-				perform_rotate(stk);
-		}
-	}
-}
-
-static int	sort_3_mov(t_stack *stk)
-{
-	int	top_value;
-	int	bottom_value;
-	int	middle_value;
-
-	init_values(&top_value, &bottom_value, &middle_value, stk);
-	if (top_value < middle_value)
-	{
-		if (top_value < bottom_value)
-		{
-			if (middle_value > bottom_value)
-				return (2);
-		}
-		else
-			return (1);
-	}
-	else if (top_value < bottom_value)
-		return (1);
-	else if (middle_value > bottom_value)
-		return (2);
-	else
-		return (1);
-	return (0);
-}
-
-static int	inv_sort_3_mov(t_stack *stk)
-{
-	int	top_value;
-	int	bottom_value;
-	int	middle_value;
-
-	init_values(&top_value, &bottom_value, &middle_value, stk);
-	if (top_value > middle_value)
-	{
-		if (top_value > bottom_value)
-		{
-			if (middle_value < bottom_value)
-				return (2);
-		}
-		else
-			return (1);
-	}
-	else if (top_value > bottom_value)
-		return (1);
-	else if (middle_value < bottom_value)
-		return (2);
-	else
-		return (1);
-	return (0);
-}
-
-int	sort_3_less_mov(t_stack *stk)
-{
-	int	n_sort;
-	int	n_inv_sort;
-
-	n_sort = sort_3_mov(stk);
-	n_inv_sort = inv_sort_3_mov(stk);
-
-	if (n_sort < n_inv_sort)
-		return (1);
-	return (0);
+	init_values(&values[0], &values[1], &values[2], stk);
+	if (!check_first(values, stk, 1))
+		check_second(values, stk, 1);
 }

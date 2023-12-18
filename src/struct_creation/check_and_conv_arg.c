@@ -1,19 +1,7 @@
-
+//THIS PASSES THE NORMINETTE!!
 #include "push_swap.h"
 
-//MUST also verify it is not max int
-static int		verify_number(char *str, int *err)
-{
-	int		num;
-	char	*rest;
-
-	num = ft_atoi(str, &rest);
-	if (*rest != '\0')
-		*err = 1;
-	return (num);
-}
-
-static t_list	*create_node(int number, int *err)
+static t_list	*create_node(int number, char *err)
 {
 	t_list	*lst;
 	t_node	*node;
@@ -59,7 +47,7 @@ static size_t	matlen(char **mat)
 	return (i);
 }
 
-static void	conv_and_push_elems(char **mat, int len, t_stack *stk, int *err)
+static void	conv_and_push_elems(char **mat, int len, t_stack *stk, char *err)
 {
 	t_list	*node;
 	int		i;
@@ -73,7 +61,7 @@ static void	conv_and_push_elems(char **mat, int len, t_stack *stk, int *err)
 			*err = 1;
 			return ;
 		}
-		num = verify_number(*(mat + i), err);
+		num = ft_atoi(*(mat + i), err);
 		if (*err)
 			return ;
 		node = create_node(num, err);
@@ -84,7 +72,7 @@ static void	conv_and_push_elems(char **mat, int len, t_stack *stk, int *err)
 	}
 }
 
-void	push_argv_in_stack(int argc, char **argv, t_stack *stk, int *err)
+void	initialize_stk_elem(int argc, char **argv, t_stack *stk, char *err)
 {
 	char	**split;
 

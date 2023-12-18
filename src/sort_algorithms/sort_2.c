@@ -1,4 +1,4 @@
-
+//THIS PASSES THE NORMINETTE!!
 #include "push_swap.h"
 
 /*

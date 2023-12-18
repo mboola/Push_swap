@@ -3,8 +3,16 @@
 # define PUSH_SWAP_H
 
 # include <stdlib.h>
-# include <stdio.h>
+# include <stdio.h>		//remove this
 # include <unistd.h>
+
+# ifndef MAX_INT
+#  define MAX_INT 2147483647
+# endif
+
+# ifndef ERROR_MSG
+#  define ERROR_MSG "Error\n"
+# endif
 
 //structs
 typedef struct t_node
@@ -28,12 +36,14 @@ typedef struct t_stack
 	struct t_list	*bottom_node;
 }	t_stack;
 
-//??
-t_stack *create_stack(char name, int *err);
+//functions used with stacks
+t_stack *create_stack(char name, char *err);
+void	initialize_stk_elem(int argc, char **argv, t_stack *stk, char *err);
 void	clear_stack(t_stack **stk);
-t_list	*convert_arg_to_lst(char **argv, int argc, int *err);
-t_list	*get_ptr_lst(t_stack *stk, int *err);
-t_list	*quick_sort(t_list *lst, int *err);
+
+t_list	*convert_arg_to_lst(char **argv, int argc, char *err);
+t_list	*get_ptr_lst(t_stack *stk, char *err);
+t_list	*quick_sort(t_list *lst, char *err);
 void	push_swap(t_stack **stk_a, t_stack **stk_b, t_list **ptr_lst);
 void	clear_data(t_stack **stk_a, t_stack **stk_b, t_list	**ptr_lst);
 
@@ -48,7 +58,7 @@ t_list	*ft_lstnew(void *content);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstadd_front(t_list **lst, t_list *new);
-int		ft_atoi(char *str, char **rest);
+int		ft_atoi(char *str, char *err);
 char	**ft_split(char *s, char c);
 
 void	ft_lstadd_n(t_list **lst, t_list *node, int index);
@@ -59,8 +69,7 @@ int		find_inside_lst(t_list *lst, int num);
 t_list	*extract_last(t_list **lst);
 t_list	*extract_first(t_list **lst);
 int		get_node_number_from_lst(t_list *ptr_lst);
-void	push_argv_in_stack(int argc, char **argv, t_stack *stk, int *err);
-t_list	*create_lst_ptr_to_nodes(t_stack *stk, int *err);
+t_list	*create_lst_ptr_to_nodes(t_stack *stk, char *err);
 
 //operations we can perform to the stack
 void	swap(t_stack *stk);
@@ -69,13 +78,12 @@ void	reverse_rotate(t_stack *stk);
 
 //operations that check if the stack gets sorted if performed
 int		swap_sorted(t_stack *stk);
-int		rotate_sorted(t_stack *stk);
 int		reverse_rotate_sorted(t_stack *stk);
 
 //general use
 int		is_sorted(t_stack *stk);
 int		is_inverse_sorted(t_stack *stk);
-int		find_shortest_path(t_stack *stk, t_list *node);
+int		find_shortest_path(t_list *node);
 
 int		can_swap(t_stack *stk);
 int		can_reverse_rotate(t_stack *stk);

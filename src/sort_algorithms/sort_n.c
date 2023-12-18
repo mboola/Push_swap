@@ -123,39 +123,6 @@ void	separate_second_values(t_stack *stk_origin, t_stack *stk_destination, t_lis
 	}
 }
 
-static void	print_stk(t_stack *stk)
-{
-	t_list	*top;
-
-	top = stk->top_node;
-	if (top == NULL)
-		return ;
-	while (top->previous != NULL)
-	{
-		printf("%d\n", *(int *)(top->content));
-		top = top->previous;
-	}
-	printf("%d\n", *(int *)(top->content));
-}
-
-static void	print_lst(t_list *lst)
-{
-	while (lst->next != NULL)
-	{
-		printf("%d\n", *(int *)(lst->content));
-		lst = lst->next;
-	}
-	printf("%d\n", *(int *)(lst->content));
-}
-
-void	print_stacks(t_stack *stk_a, t_stack *stk_b, char *str)
-{
-	printf("Stack A %s:\n", str);
-	print_stk(stk_a);
-	printf("Stack B %s:\n", str);
-	print_stk(stk_b);
-}
-
 int	push_values_sorted(t_stack *stk_origin, t_stack *stk_destination, int n_elem)
 {
 	int	i;
@@ -235,7 +202,6 @@ int	sort_half(t_stack *stk_a, t_stack *stk_b, t_list *lst)
 	t_list	*pivot;
 	t_list	*tmp;
 	int		sorted;
-	int		i;
 	int pushed_values;
 
 	// is this stack already sorted?
@@ -305,7 +271,7 @@ int	sort_half(t_stack *stk_a, t_stack *stk_b, t_list *lst)
 		}
 
 		//here everything should be sorted
-		ft_lstadd_back(&tmp, pivot);
+		ft_lstadd_back(&pivot, tmp);
 		return (1);
 	}
 }
@@ -333,7 +299,7 @@ void	sort_n(t_stack *stk_a, t_stack *stk_b, t_list *lst)
 	pivot = get_pivot(lst, size);
 
 	//we push values higher than pivot to stack B to sort them recursively
-	int n_elem = push_higher_values(stk_a, stk_b, pivot);
+	push_higher_values(stk_a, stk_b, pivot);
 
 	//here we separate lst into: first part of lst (with pivot), and second
 	second = pivot->next;

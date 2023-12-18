@@ -28,7 +28,7 @@ int		get_value_lst(t_list *ptr_lst)
 
 void	put_elem_on_top(t_stack *stk, t_list *lst)
 {
-	if (find_shortest_path(stk, lst))
+	if (find_shortest_path(lst))
 			while (get_top_value(stk) != get_lower_value(lst))
 				perform_reverse_rotate(stk);
 		else
@@ -61,7 +61,7 @@ int		get_lower_value(t_list *lst)
 /*
  *	Creates a linked list of pointers to nodes of a stack.
  */
-t_list	*create_lst_ptr_to_nodes(t_stack *stk, int *err)
+t_list	*create_lst_ptr_to_nodes(t_stack *stk, char *err)
 {
 	t_list	*ptr_lst;
 	t_list	*ptr_node;

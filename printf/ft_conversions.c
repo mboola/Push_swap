@@ -17,69 +17,69 @@
 
 #include "ft_printf.h"
 
-int	ft_putchar_err(char c, int *err)
+int	ft_putchar_err(char c, t_output *output)
 {
-	if (write(1, &c, 1) < 0)
-		*err = -1;
+	if (write(output->fd, &c, 1) < 0)
+		*(output->err) = -1;
 	return (1);
 }
 
-int	ft_putstr_err(char *str, int *err)
+int	ft_putstr_err(char *str, t_output *output)
 {
 	int	count;
 
 	if (str == NULL)
 	{
-		if (write(1, "(null)", 6) < 0)
-			*err = -1;
+		if (write(output->fd, "(null)", 6) < 0)
+			*(output->err) = -1;
 		return (6);
 	}
 	count = 0;
-	while (*str != '\0' && !*err)
+	while (*str != '\0' && !*(output->err))
 	{
-		ft_putchar_err(*str, err);
+		ft_putchar_err(*str, output);
 		str++;
 		count++;
 	}
 	return (count);
 }
 
-int	ft_putptr(void *ptr, int *err)
+int	ft_putptr(void *ptr, t_output *output)
 {
 	unsigned long	addr;
 
-	if (write(1, "0x", 2) < 0)
-		*err = -1;
-	if (!*err)
+	if (write(output->fd, "0x", 2) < 0)
+		*(output->err) = -1;
+	if (!*(output->err))
 	{
 		addr = (unsigned long)ptr;
-		return (ft_longputnbr_base_err(addr, HEXBASELOW, err, 16) + 2);
+		return (put_unslong_base(addr, HEXBASELOW, output, 16) + 2);
 	}
 	return (0);
 }
 
-int	choose_conversion(char const *str, int *err, va_list va)
+int	choose_conversion(char const *str, t_output *op)
 {
 	int	count;
 
 	count = 0;
 	if (*str == 'c')
-		count = ft_putchar_err(va_arg(va, int), err);
+		count = ft_putchar_err(va_arg(op->va, int), op);
 	else if (*str == 's')
-		count = ft_putstr_err(va_arg(va, char *), err);
+		count = ft_putstr_err(va_arg(op->va, char *), op);
 	else if (*str == 'u')
-		count = ft_unsputnbr_base_err(va_arg(va, int), DECBASE, err, 10);
+		count = put_unsint_base(va_arg(op->va, int), DECBASE, op, 10);
 	else if (*str == 'p')
-		count = ft_putptr(va_arg(va, void *), err);
+		count = ft_putptr(va_arg(op->va, void *), op);
 	else if (*str == 'i' || *str == 'd')
-		count = ft_putnbr_base_err(va_arg(va, int), DECBASE, err, 10);
+		count = put_int_base_err(va_arg(op->va, int), DECBASE, op, 10);
 	else if (*str == 'x')
-		count = ft_unsputnbr_base_err(va_arg(va, int), HEXBASELOW, err, 16);
+		count = put_unsint_base(va_arg(op->va, int), HEXBASELOW, op, 16);
 	else if (*str == 'X')
-		count = ft_unsputnbr_base_err(va_arg(va, int), HEXBASEHIG, err, 16);
+		count = put_unsint_base(va_arg(op->va, int), HEXBASEHIG, op, 16);
 	else if (*str == '%')
-		count = ft_putchar_err('%', err);
+		count = ft_putchar_err('%', op);
 	else
-		*err = -1;
+		*(op->err) = -1;
 	return (count);
 }

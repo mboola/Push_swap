@@ -12,30 +12,54 @@
 
 #include "ft_printf.h"
 
-int	ft_printf(char const *str, ...)
+static t_output	*create_strct(int fd, va_list va, int *err)
 {
-	int		err;
-	int		count;
-	va_list	va;
+	t_output	*output;
+
+	output = malloc(sizeof(t_output));
+	if (output == NULL)
+	{
+		*err = 1;
+		return (NULL);
+	}
+	output->fd = fd;
+	va_copy(va, output->va);
+	output->err = err;
+	return (output);
+}
+
+static int	end(va_list va, int err, int count)
+{
+	va_end(va);
+	if (err)
+		return (-1);
+	return (count);
+}
+
+int	ft_printf(int fd, char const *str, ...)
+{
+	int			err;
+	int			count;
+	t_output	*output;
+	va_list		va;
 
 	if (str == NULL)
 		return (-1);
 	err = 0;
 	count = 0;
 	va_start(va, str);
+	output = create_strct(fd, va, &err);
 	while (*str != '\0' && !err)
 	{
 		if (*str == '%')
 		{
 			str++;
-			count += choose_conversion(str, &err, va);
+			count += choose_conversion(str, output);
 		}
 		else
-			count += ft_putchar_err(*str, &err);
+			count += ft_putchar_err(*str, output);
 		str++;
 	}
-	va_end(va);
-	if (err)
-		return (-1);
-	return (count);
+	free(output);
+	return (end(va, err, count));
 }

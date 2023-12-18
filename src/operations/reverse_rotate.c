@@ -17,13 +17,13 @@ void	reverse_rotate(t_stack *stk)
 
 void	perform_reverse_rotate(t_stack *stk)
 {
-	ft_printf("rr%c\n", stk->name);
+	ft_printf(1, "rr%c\n", stk->name);
 	reverse_rotate(stk);
 }
 
 void	perform_double_reverse_rotate(t_stack *stk_a, t_stack *stk_b)
 {
-	ft_printf("rrr\n");
+	ft_printf(1, "rrr\n");
 	reverse_rotate(stk_a);
 	reverse_rotate(stk_b);
 }

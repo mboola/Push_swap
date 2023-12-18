@@ -50,7 +50,7 @@ OBJS				=	${ALL_FILES:.c=.o}
 
 HEADER				=	${INCLUDES}/push_swap.h
 
-%.o: %.c ${HEADER} Makefile
+%.o: %.c ${HEADER} Makefile ${PRINTF}
 	${CC} ${FLAGS} -I ${INCLUDES} -c $< -o $@ ${DEBUG}
 
 # RULES

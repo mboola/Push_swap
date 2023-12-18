@@ -20,13 +20,15 @@ all: ${NAME}
 
 ${NAME}: ${OBJS}
 	@ar rcs $@ ${OBJS}
-	@echo "Compilation of $@ succesfull"
+	@echo "Make of $@ succesfull"
 
 clean:
 	@rm -f ${OBJS}
+	@echo "clean succesfull"
 
 fclean: clean
 	@rm -f ${NAME}
+	@echo "fclean succesfull"
 
 re: fclean all
 	

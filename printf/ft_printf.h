@@ -27,12 +27,20 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-int	ft_printf(char const *str, ...);
-int	choose_conversion(char const *str, int *err, va_list va);
-int	ft_putchar_err(char c, int *err);
-int	ft_putstr_err(char *str, int *err);
-int	ft_putnbr_base_err(int nbr, char *base, int *err, int len);
-int	ft_unsputnbr_base_err(unsigned int nbr, char *base, int *err, int len);
-int	ft_longputnbr_base_err(unsigned long nbr, char *base, int *err, int len);
+typedef struct t_output
+{
+	int		fd;
+	int		*err;
+	va_list	va;
+}	t_output;
+
+int	ft_printf(int fd, char const *str, ...);
+int	choose_conversion(char const *str, t_output *output);
+int	ft_putchar_err(char c, t_output *output);
+int	ft_putstr_err(char *str, t_output *output);
+int	ft_putptr(void *ptr, t_output *output);
+int	put_unslong_base(unsigned long nbr, char *base, t_output *op, int len);
+int	put_unsint_base(unsigned int nbr, char *base, t_output *op, int len);
+int	put_int_base_err(int nbr, char *base, t_output *op, int len);
 
 #endif

@@ -12,35 +12,35 @@
 
 #include "ft_printf.h"
 
-static int	put_nbr_long(unsigned long num, char *base, int *err, int len)
+static int	put_nbr_long(unsigned long num, char *base, t_output *op, int len)
 {
 	int	count;
 
 	if (num / len < 1)
-		return (ft_putchar_err(base[num], err));
+		return (ft_putchar_err(base[num], op));
 	else
 	{
-		count = put_nbr_long(num / len, base, err, len);
-		if (!*err)
-			count += ft_putchar_err(base[(num % len)], err);
+		count = put_nbr_long(num / len, base, op, len);
+		if (!*(op->err))
+			count += ft_putchar_err(base[(num % len)], op);
 		return (count);
 	}
 }
 
-int	ft_longputnbr_base_err(unsigned long nbr, char *base, int *err, int len)
+int	put_unslong_base(unsigned long nbr, char *base, t_output *op, int len)
 {
-	return (put_nbr_long(nbr, base, err, len));
+	return (put_nbr_long(nbr, base, op, len));
 }
 
-int	ft_unsputnbr_base_err(unsigned int nbr, char *base, int *err, int len)
+int	put_unsint_base(unsigned int nbr, char *base, t_output *op, int len)
 {
 	unsigned long	n;
 
 	n = 0 + nbr;
-	return (put_nbr_long(n, base, err, len));
+	return (put_nbr_long(n, base, op, len));
 }
 
-int	ft_putnbr_base_err(int nbr, char *base, int *err, int len)
+int	put_int_base_err(int nbr, char *base, t_output *op, int len)
 {
 	unsigned int	num;
 	int				count;
@@ -49,13 +49,13 @@ int	ft_putnbr_base_err(int nbr, char *base, int *err, int len)
 	count = 0;
 	if (nbr < 0)
 	{
-		count += ft_putchar_err('-', err);
+		count += ft_putchar_err('-', op);
 		num = nbr * -1;
 	}
 	else
 		num = nbr;
 	n = 0 + num;
-	if (!*err)
-		return (put_nbr_long(n, base, err, len) + count);
+	if (!*(op->err))
+		return (put_nbr_long(n, base, op, len) + count);
 	return (count);
 }

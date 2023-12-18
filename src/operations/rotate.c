@@ -16,13 +16,13 @@ void	rotate(t_stack *stk)
 
 void	perform_rotate(t_stack *stk)
 {
-	ft_printf("r%c\n", stk->name);
+	ft_printf(1, "r%c\n", stk->name);
 	rotate(stk);
 }
 
 void	perform_double_rotate(t_stack *stk_a, t_stack *stk_b)
 {
-	ft_printf("rr\n");
+	ft_printf(1, "rr\n");
 	rotate(stk_a);
 	rotate(stk_b);
 }

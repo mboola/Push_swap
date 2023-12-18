@@ -18,6 +18,6 @@ static void	push(t_stack *stk_org, t_stack *stk_dest)
 
 void	perform_push(t_stack *stk_org, t_stack *stk_dest)
 {
-	ft_printf("p%c\n", stk_dest->name);
+	ft_printf(1, "p%c\n", stk_dest->name);
 	push(stk_org, stk_dest);
 }

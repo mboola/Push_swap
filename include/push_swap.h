@@ -126,6 +126,6 @@ void	inverse_sort_2(t_stack *stk);
 void	inverse_sort_3(t_stack *stk);
 int		sort_3_less_mov(t_stack *stk);
 
-int		ft_printf(char const *str, ...);
+int		ft_printf(int fd, char const *str, ...);
 
 #endif

@@ -20,13 +20,13 @@ void	swap(t_stack *stk)
 
 void	perform_swap(t_stack *stk)
 {
-	ft_printf("s%c\n", stk->name);
+	ft_printf(1, "s%c\n", stk->name);
 	swap(stk);
 }
 
 void	perform_double_swap(t_stack *stk_a, t_stack *stk_b)
 {
-	ft_printf("ss\n");
+	ft_printf(1, "ss\n");
 	swap(stk_a);
 	swap(stk_b);
 }

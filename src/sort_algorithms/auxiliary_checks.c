@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   auxiliary_checks.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mpovill- <mpovill-@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/19 12:11:32 by mpovill-          #+#    #+#             */
+/*   Updated: 2023/12/19 12:20:50 by mpovill-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
 /*
  *	Checks if the top two elements of the stack can be swapped.
  */
-int		can_swap(t_stack *stk)
+int	can_swap(t_stack *stk)
 {
 	t_list	*lst;
 	int		first;
@@ -21,7 +32,7 @@ int		can_swap(t_stack *stk)
 	return (0);
 }
 
-int		is_inverse_sorted(t_stack *stk)
+int	is_inverse_sorted(t_stack *stk)
 {
 	t_list	*lst;
 	int		curr_num;
@@ -49,7 +60,7 @@ int		is_inverse_sorted(t_stack *stk)
 /*
  *	Checks if the stack is sorted.
  */
-int		is_sorted(t_stack *stk)
+int	is_sorted(t_stack *stk)
 {
 	t_list	*lst;
 	int		curr_num;
@@ -77,7 +88,7 @@ int		is_sorted(t_stack *stk)
 /*
  *	Checks if with a swap the stack gets sorted.
  */
-int		swap_sorted(t_stack *stk)
+int	swap_sorted(t_stack *stk)
 {
 	int	sorted;
 

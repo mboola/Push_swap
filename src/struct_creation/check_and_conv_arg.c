@@ -1,4 +1,15 @@
-//THIS PASSES THE NORMINETTE!!
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_and_conv_arg.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mpovill- <mpovill-@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/19 12:11:32 by mpovill-          #+#    #+#             */
+/*   Updated: 2023/12/19 12:20:50 by mpovill-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 static t_list	*create_node(int number, char *err)

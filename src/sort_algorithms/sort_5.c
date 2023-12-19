@@ -1,4 +1,15 @@
-//THIS PASSES THE NORMINETTE!!
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort_5.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mpovill- <mpovill-@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/19 12:11:32 by mpovill-          #+#    #+#             */
+/*   Updated: 2023/12/19 12:20:50 by mpovill-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 static void	sort_first_lower(t_stack *stk_a, t_stack *stk_b, t_list *lst)

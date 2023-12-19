@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mpovill- <mpovill-@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/19 12:11:32 by mpovill-          #+#    #+#             */
+/*   Updated: 2023/12/19 12:20:50 by mpovill-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
@@ -36,7 +47,7 @@ typedef struct t_stack
 }	t_stack;
 
 //functions used with stacks
-t_stack *create_stack(char name, char *err);
+t_stack	*create_stack(char name, char *err);
 void	initialize_stk_elem(int argc, char **argv, t_stack *stk, char *err);
 void	clear_stack(t_stack **stk);
 

@@ -23,7 +23,7 @@ static t_output	*create_strct(int fd, va_list va, int *err)
 		return (NULL);
 	}
 	output->fd = fd;
-	va_copy(va, output->va);
+	va_copy(output->va, va);
 	output->err = err;
 	return (output);
 }

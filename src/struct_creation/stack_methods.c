@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stack_methods.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mpovill- <mpovill-@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/14 12:11:32 by mpovill-          #+#    #+#             */
+/*   Updated: 2023/09/14 12:20:50 by mpovill-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
@@ -11,7 +22,6 @@ int		find_shortest_path(t_list *node)
 	steps_rr = 0;
 	steps_r = 0;
 	lst = (t_list *)(node->content);
-	//first we look rotate (up)
 	while(lst->next != NULL)
 	{
 		lst = lst->next;
@@ -24,7 +34,6 @@ int		find_shortest_path(t_list *node)
 		steps_rr++;
 	}
 	steps_rr++;
-	//printf("Steps r are: %d and Steps rr are: %d\n", steps_r, steps_rr);
 	if (steps_rr < steps_r)
 		return (1);
 	return (0);
@@ -36,33 +45,6 @@ int	get_value_stk(t_list *stk_lst)
 
 	number = ((t_node *)(stk_lst->content))->number;
 	return (number);
-}
-
-int		get_num_at(t_stack *stk, size_t index, int from_bottom)
-{
-	t_list	*lst;
-	size_t	i;
-
-	if (stk->n_elem < index)
-		return (0);
-	if (from_bottom)
-		lst = stk->bottom_node;
-	else
-		lst = stk->top_node;
-	i = 0;
-	if (from_bottom)
-		while (i < index)
-		{
-			lst = lst->next;
-			i++;
-		}
-	else
-		while (i < index)
-		{
-			lst = lst->previous;
-			i++;
-		}
-	return (get_value_stk(lst));
 }
 
 int	get_bottom_value(t_stack *stk)

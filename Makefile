@@ -14,7 +14,6 @@ SRC			=	src
 INCLUDES	=	include
 
 PRINTF_SRC	=	printf
-LIBFT_SRC	=	libft
 
 STATIC_LIBS	=	libs
 
@@ -23,6 +22,10 @@ OPERATIONS_DIR		=	${SRC}/operations
 OPERATIONS_FILES	=	${OPERATIONS_DIR}/push.c ${OPERATIONS_DIR}/reverse_rotate.c \
 						${OPERATIONS_DIR}/rotate.c ${OPERATIONS_DIR}/swap.c \
 						${OPERATIONS_DIR}/core_stack_methods.c
+
+LIBFT_DIR			=	${SRC}/libft_funct
+LIBFT_FILES			=	${LIBFT_DIR}/ft_atoi_err.c ${LIBFT_DIR}/ft_lst.c ${LIBFT_DIR}/ft_lst2.c \
+						${LIBFT_DIR}/ft_split.c
 
 QUICK_SORT_DIR		=	${SRC}/quick_sort
 QUICK_SORT_FILES	=	${QUICK_SORT_DIR}/quick_sort.c
@@ -37,15 +40,14 @@ SORT_ALGRTHM_FILES	=	${SORT_ALGRTHM_DIR}/sort_2.c ${SORT_ALGRTHM_DIR}/sort_3.c \
 #dir of methods to create and clean the stacks and lists
 STRCT_CREATN_DIR	=	${SRC}/struct_creation
 STRCT_CREATN_FILES	=	${STRCT_CREATN_DIR}/clear_data.c ${STRCT_CREATN_DIR}/check_and_conv_arg.c \
-						${STRCT_CREATN_DIR}/ft_split.c \
-						${STRCT_CREATN_DIR}/stack_methods.c ${STRCT_CREATN_DIR}/t_list_functions.c \
+						${STRCT_CREATN_DIR}/stack_methods.c \
 						${STRCT_CREATN_DIR}/ptr_nodes_methods.c
 
 #dir of main used
 MAIN_DIR			=	${SRC}/main
 MAIN_FILES			=	${MAIN_DIR}/main.c
 
-ALL_FILES			=	${OPERATIONS_FILES} ${SORT_ALGRTHM_FILES} ${STRCT_CREATN_FILES} ${QUICK_SORT_FILES} ${MAIN_FILES}
+ALL_FILES			=	${OPERATIONS_FILES} ${SORT_ALGRTHM_FILES} ${STRCT_CREATN_FILES} ${QUICK_SORT_FILES} ${LIBFT_FILES} ${MAIN_FILES}
 OBJS				=	${ALL_FILES:.c=.o}
 
 HEADER				=	${INCLUDES}/push_swap.h

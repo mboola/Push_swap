@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_methods.c                                    :+:      :+:    :+:   */
+/*   ptr_lst_methods1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpovill- <mpovill-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,47 +12,52 @@
 
 #include "push_swap.h"
 
-void	put_elem_on_top(t_stack *stk, t_list *lst)
+//if going down is the fastest path it returns 1, if not returns 0
+int	find_shortest_path(t_list *node)
 {
-	if (find_shortest_path(lst))
-		while (get_top_value(stk) != get_lower_value(lst))
-			perform_reverse_rotate(stk);
-	else
-		while (get_top_value(stk) != get_lower_value(lst))
-			perform_rotate(stk);
-}
+	int		steps_r;
+	int		steps_rr;
+	t_list	*lst;
 
-int	get_value_stk(t_list *stk_lst)
-{
-	int	number;
-
-	number = ((t_node *)(stk_lst->content))->number;
-	return (number);
-}
-
-int	get_bottom_value(t_stack *stk)
-{
-	return (get_value_stk(stk->bottom_node));
-}
-
-int	get_top_value(t_stack *stk)
-{
-	return (get_value_stk(stk->top_node));
-}
-
-t_stack	*create_stack(char name, char *err)
-{
-	t_stack	*stk;
-
-	stk = malloc(sizeof(t_stack));
-	if (!stk)
+	steps_rr = 0;
+	steps_r = 0;
+	lst = (t_list *)(node->content);
+	while (lst->next != NULL)
 	{
-		*err = 1;
-		return (NULL);
+		lst = lst->next;
+		steps_r++;
 	}
-	stk->name = name;
-	stk->top_node = NULL;
-	stk->bottom_node = NULL;
-	stk->n_elem = 0;
-	return (stk);
+	lst = (t_list *)(node->content);
+	while (lst->previous != NULL)
+	{
+		lst = lst->previous;
+		steps_rr++;
+	}
+	steps_rr++;
+	if (steps_rr < steps_r)
+		return (1);
+	return (0);
+}
+
+int	find_inside_lst(t_list *lst, int num)
+{
+	int	i;
+
+	i = 0;
+	while (get_value_lst(lst) != num)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (i);
+}
+
+int	get_higher_value(t_list *lst)
+{
+	return (get_value_lst(ft_lstlast(lst)));
+}
+
+int	get_lower_value(t_list *lst)
+{
+	return (get_value_lst(lst));
 }

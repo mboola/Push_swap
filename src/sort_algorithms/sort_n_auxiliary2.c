@@ -13,46 +13,6 @@
 #include "push_swap.h"
 
 /*
- *	This will separate the values greater than pivot to stack_b in the less movements possible.
- */
-int	separate_first_values(t_stack *stk_origin, t_stack *stk_destination, t_list *pivot)
-{
-	int	count;
-	int	i;
-	
-	count = get_len_to_end(pivot);
-	i = count;
-	while (count > 0)
-	{
-		if (get_top_value(stk_origin) > get_value_lst(pivot))
-		{
-			perform_push(stk_origin, stk_destination);
-			count--;
-		}
-		else
-			perform_rotate(stk_origin);
-	}
-	return (i);
-}
-
-void	separate_second_values(t_stack *stk_origin, t_stack *stk_destination, t_list *pivot)
-{
-	int	count;
-	
-	count = get_len_to_start(pivot);
-	while (count > 0)
-	{
-		if (get_top_value(stk_origin) < get_value_lst(pivot))
-		{
-			perform_push(stk_origin, stk_destination);
-			count--;
-		}
-		else
-			perform_rotate(stk_origin);
-	}
-}
-
-/*
  *	Here we push values higher than pivot to stack B.
  */
 int	push_higher_values(t_stack *stk_org, t_stack *stk_dest, t_list *pivot)

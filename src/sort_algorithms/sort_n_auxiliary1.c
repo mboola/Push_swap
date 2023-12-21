@@ -57,7 +57,7 @@ void	rotate_elem(t_stack *stk, int n_elem)
 
 void	push_elem(t_stack *stk_a, t_stack *stk_b, int n_elem)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < n_elem)

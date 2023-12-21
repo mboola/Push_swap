@@ -54,7 +54,7 @@ t_list	*ft_lstnew(void *content)
 t_list	*lst_separate(t_list *lst)
 {
 	t_list	*previous;
-	
+
 	previous = lst->previous;
 	previous->next = NULL;
 	lst->previous = NULL;

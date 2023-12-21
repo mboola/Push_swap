@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort_n.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mpovill- <mpovill-@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/21 12:11:32 by mpovill-          #+#    #+#             */
+/*   Updated: 2023/12/21 12:20:50 by mpovill-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	sort_and_push(t_stack *stk_a, t_stack *stk_b, t_list *lst, char ignore_sorted);
+static void	sort(t_stack *stk_a, t_stack *stk_b, t_list *lst, char ign_sorted);
 static int	sort_half(t_stack *stk_a, t_stack *stk_b, t_list *lst);
 
 static int	is_range_sorted(t_stack *stk, int n_elem)
@@ -42,7 +53,7 @@ static int	has_ended(t_stack *stk_b)
 	return (-1);
 }
 
-static void	sort_and_push(t_stack *stk_a, t_stack *stk_b, t_list *lst, char ignore_sorted)
+static void	sort(t_stack *stk_a, t_stack *stk_b, t_list *lst, char ign_sorted)
 {
 	int	sorted;
 	int	pushed_values;
@@ -52,7 +63,7 @@ static void	sort_and_push(t_stack *stk_a, t_stack *stk_b, t_list *lst, char igno
 		pushed_values = push_values_sorted(stk_b, stk_a, 0);
 	else
 		pushed_values = push_values_invsorted(stk_b, stk_a, 0);
-	if (ignore_sorted || (!ignore_sorted && !is_sorted(stk_a)))
+	if (ign_sorted || (!ign_sorted && !is_sorted(stk_a)))
 		rotate_elem(stk_a, pushed_values);
 }
 
@@ -66,7 +77,7 @@ static int	sort_half(t_stack *stk_a, t_stack *stk_b, t_list *lst)
 	int		n_elem;
 	t_list	*pivot;
 	t_list	*tmp;
-	int	end;
+	int		end;
 
 	end = has_ended(stk_b);
 	if (end != -1)
@@ -76,13 +87,13 @@ static int	sort_half(t_stack *stk_a, t_stack *stk_b, t_list *lst)
 	tmp = pivot->next;
 	pivot->next = NULL;
 	tmp->previous = NULL;
-	sort_and_push(stk_a, stk_b, lst, 1);
+	sort(stk_a, stk_b, lst, 1);
 	if (is_range_sorted(stk_a, n_elem))
 		rotate_elem(stk_a, n_elem);
 	else
 	{
 		push_elem(stk_a, stk_b, n_elem);
-		sort_and_push(stk_a, stk_b, tmp, 0);
+		sort(stk_a, stk_b, tmp, 0);
 	}
 	ft_lstadd_back(&pivot, tmp);
 	return (1);
@@ -103,7 +114,7 @@ void	sort_n(t_stack *stk_a, t_stack *stk_b, t_list *lst)
 	tmp = pivot->next;
 	pivot->next = NULL;
 	tmp->previous = NULL;
-	sort_and_push(stk_a, stk_b, tmp, 1);
+	sort(stk_a, stk_b, tmp, 1);
 	ft_lstadd_back(&pivot, tmp);
 	if (is_sorted(stk_a))
 		return ;
@@ -113,7 +124,7 @@ void	sort_n(t_stack *stk_a, t_stack *stk_b, t_list *lst)
 	tmp = pivot->previous;
 	tmp->next = NULL;
 	pivot->previous = NULL;
-	sort_and_push(stk_a, stk_b, lst, 1);
+	sort(stk_a, stk_b, lst, 1);
 	while (get_top_value(stk_a) != get_lower_value(lst))
 		perform_rotate(stk_a);
 	ft_lstadd_back(&lst, pivot);

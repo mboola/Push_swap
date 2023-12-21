@@ -34,8 +34,9 @@ QUICK_SORT_FILES	=	${QUICK_SORT_DIR}/quick_sort.c
 SORT_ALGRTHM_DIR	=	${SRC}/sort_algorithms
 SORT_ALGRTHM_FILES	=	${SORT_ALGRTHM_DIR}/sort_2.c ${SORT_ALGRTHM_DIR}/sort_3.c \
 						${SORT_ALGRTHM_DIR}/sort_4.c ${SORT_ALGRTHM_DIR}/sort_5.c \
-						${SORT_ALGRTHM_DIR}/sort_n.c ${SORT_ALGRTHM_DIR}/auxiliary_checks.c \
-						${SORT_ALGRTHM_DIR}/push_swap.c
+						${SORT_ALGRTHM_DIR}/push_swap.c ${SORT_ALGRTHM_DIR}/auxiliary_checks.c \
+						${SORT_ALGRTHM_DIR}/sort_n.c ${SORT_ALGRTHM_DIR}/sort_n_auxiliary1.c \
+						${SORT_ALGRTHM_DIR}/sort_n_auxiliary2.c ${SORT_ALGRTHM_DIR}/sort_n_auxiliary3.c
 
 #dir of methods to create and clean the stacks and lists
 STRCT_CREATN_DIR	=	${SRC}/struct_creation

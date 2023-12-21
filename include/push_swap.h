@@ -50,6 +50,7 @@ typedef struct t_stack
 int		ft_atoi(char *str, char *err);
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 t_list	*ft_lstnew(void *content);
+t_list	*lst_separate(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstadd_front(t_list **lst, t_list *new);
@@ -97,6 +98,16 @@ void	inverse_sort_3(t_stack *stk);
 void	sort_4(t_stack *stk_a, t_stack *stk_b, t_list *lst);
 void	sort_5(t_stack *stk_a, t_stack *stk_b, t_list *lst);
 void	sort_n(t_stack *stk_a, t_stack *stk_b, t_list *lst);
+
+int		push_values_sorted(t_stack *stk_origin, t_stack *stk_dest, int n_elem);
+int		push_values_invsorted(t_stack *stk_org, t_stack *stk_dest, int n_elem);
+void	rotate_elem(t_stack *stk, int n_elem);
+void	push_elem(t_stack *stk_a, t_stack *stk_b, int n_elem);
+t_list	*get_pivot(t_list *lst);
+int		push_higher_values(t_stack *stk_org, t_stack *stk_dest, t_list *pivot);
+void	push_lower_values(t_stack *stk_org, t_stack *stk_dest, t_list *pivot);
+int		get_len_to_end(t_list *lst);
+int		get_len_to_start(t_list *lst);
 
 //checking validity of arguments
 void	initialize_stk_elem(int argc, char **argv, t_stack *stk, char *err);

@@ -1,172 +1,10 @@
 
 #include "push_swap.h"
 
-static int	get_len_to_end(t_list *lst)
-{
-	int	i;
+static void	sort_and_push(t_stack *stk_a, t_stack *stk_b, t_list *lst, char ignore_sorted);
+static int	sort_half(t_stack *stk_a, t_stack *stk_b, t_list *lst);
 
-	i = 0;
-	while (lst->next != NULL)
-	{
-		lst = lst->next;
-		i++;
-	}
-	return (i);
-}
-
-static int	get_len_to_start(t_list *lst)
-{
-	int	i;
-
-	i = 0;
-	while (lst->previous != NULL)
-	{
-		lst = lst->previous;
-		i++;
-	}
-	return (i);
-}
-
-static t_list	*get_pivot(t_list *lst, int size)
-{
-	int	i;
-	int	len;
-
-	i = 0;
-	len = size / 2;
-	while (i < len)
-	{
-		lst = lst->next;
-		i++;
-	}
-	return (lst);
-}
-
-/*
- *	Here we push values higher than pivot to stack B.
- */
-int	push_higher_values(t_stack *stk_origin, t_stack *stk_destination, t_list *pivot)
-{
-	int	n_elem;
-	int	i;
-
-	//we get the number of elements from pivot to end
-	n_elem = get_len_to_end(pivot);
-	i = n_elem;
-	while (n_elem > 0)
-	{
-		if (get_top_value(stk_origin) > get_value_lst(pivot))
-		{
-			perform_push(stk_origin, stk_destination);
-			n_elem--;
-		}
-		else
-			perform_rotate(stk_origin);
-	}
-	return (i);
-}
-
-void	push_lower_values(t_stack *stk_origin, t_stack *stk_destination, t_list *pivot)
-{
-	int	n_elem;
-
-	n_elem = get_len_to_start(pivot);
-	while (n_elem > 0)
-	{
-		if (get_top_value(stk_origin) < get_value_lst(pivot))
-		{
-			perform_push(stk_origin, stk_destination);
-			n_elem--;
-		}
-		else
-			perform_rotate(stk_origin);
-	}
-}
-
-/*
- *	This will separate the values greater than pivot to stack_b in the less movements possible.
- */
-int	separate_first_values(t_stack *stk_origin, t_stack *stk_destination, t_list *pivot)
-{
-	int	count;
-	int	i;
-	
-	count = get_len_to_end(pivot);
-	i = count;
-	while (count > 0)
-	{
-		if (get_top_value(stk_origin) > get_value_lst(pivot))
-		{
-			perform_push(stk_origin, stk_destination);
-			count--;
-		}
-		else
-			perform_rotate(stk_origin);
-	}
-	return (i);
-}
-
-void	separate_second_values(t_stack *stk_origin, t_stack *stk_destination, t_list *pivot)
-{
-	int	count;
-	
-	count = get_len_to_start(pivot);
-	while (count > 0)
-	{
-		if (get_top_value(stk_origin) < get_value_lst(pivot))
-		{
-			perform_push(stk_origin, stk_destination);
-			count--;
-		}
-		else
-			perform_rotate(stk_origin);
-	}
-}
-
-int	push_values_sorted(t_stack *stk_origin, t_stack *stk_destination, int n_elem)
-{
-	int	i;
-
-	i = 0;
-	if (stk_origin->n_elem == 0)
-		return (0);
-	while (stk_origin->n_elem - n_elem > 1)
-	{
-		perform_reverse_rotate(stk_origin);
-		perform_push(stk_origin, stk_destination);
-		i++;
-	}
-	i++;
-	perform_push(stk_origin, stk_destination);
-	return (i);
-}
-
-int	push_values_inverse_sorted(t_stack *stk_origin, t_stack *stk_destination, int n_elem)
-{
-	int	i;
-
-	i = 0;
-	while (stk_origin->n_elem - n_elem > 0)
-	{
-		perform_push(stk_origin, stk_destination);
-		i++;
-	}
-	return (i);
-}
-
-void	rotate_elem(t_stack *stk, int n_elem)
-{
-	int	i;
-
-	i = 0;
-	while (i < n_elem)
-	{
-		perform_rotate(stk);
-		i++;
-	}
-}
-
-int	is_range_sorted(t_stack *stk, int n_elem)
+static int	is_range_sorted(t_stack *stk, int n_elem)
 {
 	int		i;
 	int		lower;
@@ -190,175 +28,93 @@ int	is_range_sorted(t_stack *stk, int n_elem)
 	return (1);
 }
 
+static int	has_ended(t_stack *stk_b)
+{
+	if (is_sorted(stk_b))
+		return (1);
+	if (is_inverse_sorted(stk_b))
+		return (0);
+	if (stk_b->n_elem == 3)
+	{
+		inverse_sort_3(stk_b);
+		return (0);
+	}
+	return (-1);
+}
+
+static void	sort_and_push(t_stack *stk_a, t_stack *stk_b, t_list *lst, char ignore_sorted)
+{
+	int	sorted;
+	int	pushed_values;
+
+	sorted = sort_half(stk_a, stk_b, lst);
+	if (sorted)
+		pushed_values = push_values_sorted(stk_b, stk_a, 0);
+	else
+		pushed_values = push_values_invsorted(stk_b, stk_a, 0);
+	if (ignore_sorted || (!ignore_sorted && !is_sorted(stk_a)))
+		rotate_elem(stk_a, pushed_values);
+}
+
 /*
  *	This will be a quick_sort with stacks.
  *	Returns if it is sorted normally (1)
  *	or invertally sorted (0)
  */
-int	sort_half(t_stack *stk_a, t_stack *stk_b, t_list *lst)
+static int	sort_half(t_stack *stk_a, t_stack *stk_b, t_list *lst)
 {
 	int		n_elem;
-	int		len;
 	t_list	*pivot;
 	t_list	*tmp;
-	int		sorted;
-	int pushed_values;
+	int	end;
 
-	// is this stack already sorted?
-	if (is_sorted(stk_b))
-		return (1);
-	if (is_inverse_sorted(stk_b))
-		return (0);
-	
-	//if it is not sorted, we look if it can inmediatebly be sorted
-	if (stk_b->n_elem == 3)
-	{
-		//and we sort it with the less movements possible
-		/*
-		if (sort_3_less_mov(stk_b))
-		{
-			sort_3(stk_b);
-			return (1);
-		}*/
-		inverse_sort_3(stk_b);
-		return (0);
-	}
+	end = has_ended(stk_b);
+	if (end != -1)
+		return (end);
+	pivot = get_pivot(lst);
+	n_elem = push_higher_values(stk_b, stk_a, pivot);
+	tmp = pivot->next;
+	pivot->next = NULL;
+	tmp->previous = NULL;
+	sort_and_push(stk_a, stk_b, lst, 1);
+	if (is_range_sorted(stk_a, n_elem))
+		rotate_elem(stk_a, n_elem);
 	else
 	{
-		//if it is not sorted and has more than 3 elements
-		//we will separate this stack with a pivot
-		len = get_len_to_end(lst);
-		pivot = get_pivot(lst, len);
-
-		//we put to stk_a all values higher than pivot.
-		//n_elem is the number of elements pushed to stk a
-		n_elem = push_higher_values(stk_b, stk_a, pivot);
-
-		//I get the list with the values to sort stk b has
-		tmp = pivot->next;
-		pivot->next = NULL;
-		tmp->previous = NULL;
-
-		//I sort the values I have at stk b
-		sorted = sort_half(stk_a, stk_b, lst);
-
-		if (sorted)
-			pushed_values = push_values_sorted(stk_b, stk_a, 0);
-		else
-			pushed_values = push_values_inverse_sorted(stk_b, stk_a, 0);
-		
-		rotate_elem(stk_a, pushed_values);
-
-		if (is_range_sorted(stk_a, n_elem))
-			rotate_elem(stk_a, n_elem);
-		else
-		{
-			int i = 0;
-			while (i < n_elem)
-			{
-				perform_push(stk_a, stk_b);
-				i++;
-			}
-			sorted = sort_half(stk_a, stk_b, tmp);
-			if (sorted)
-				pushed_values = push_values_sorted(stk_b, stk_a, 0);
-			else
-				pushed_values = push_values_inverse_sorted(stk_b, stk_a, 0);
-
-			//and rotate them if not sorted
-			if (!is_sorted(stk_a))
-				rotate_elem(stk_a, pushed_values);
-		}
-
-		//here everything should be sorted
-		ft_lstadd_back(&pivot, tmp);
-		return (1);
+		push_elem(stk_a, stk_b, n_elem);
+		sort_and_push(stk_a, stk_b, tmp, 0);
 	}
+	ft_lstadd_back(&pivot, tmp);
+	return (1);
 }
 
 /*
  *	Function used to sort n elements.
-	--pretty sure this works as expected
  */
 void	sort_n(t_stack *stk_a, t_stack *stk_b, t_list *lst)
 {
-	int		size;
 	t_list	*pivot;
-	t_list	*first;
-	t_list	*second;
-	int		pushed_values;
+	t_list	*tmp;
 
-	//if sorted we end
 	if (is_sorted(stk_a))
 		return ;
-
-	//total size of the list
-	size = get_len_to_end(lst);
-
-	//pivot will be the node size/2
-	pivot = get_pivot(lst, size);
-
-	//we push values higher than pivot to stack B to sort them recursively
+	pivot = get_pivot(lst);
 	push_higher_values(stk_a, stk_b, pivot);
-
-	//here we separate lst into: first part of lst (with pivot), and second
-	second = pivot->next;
+	tmp = pivot->next;
 	pivot->next = NULL;
-	second->previous = NULL;
-
-	//and we sort the elements in stack b
-	int sorted = sort_half(stk_a, stk_b, second);
-
-	//we put all those elements back at stack a, the higher ones at the bottom and the big ones on top
-	if (sorted)
-		pushed_values = push_values_sorted(stk_b, stk_a, 0);
-	else
-		pushed_values = push_values_inverse_sorted(stk_b, stk_a, 0);
-
-	//and we put the lower elements on top
-	rotate_elem(stk_a, pushed_values);
-
-	//here I put back lst and second
-	ft_lstadd_back(&pivot, second);
-
-	//if it is 'magically' sorted we end
+	tmp->previous = NULL;
+	sort_and_push(stk_a, stk_b, tmp, 1);
+	ft_lstadd_back(&pivot, tmp);
 	if (is_sorted(stk_a))
-	{
-		//print_stacks(stk_a, stk_b, "Sorted");
 		return ;
-	}
-
-	//and now we push the lower values to stack b. I should do it till i find the first sorted element.
-	//I should store the pivot at the back.
 	push_lower_values(stk_a, stk_b, pivot);
-
-	//And here I retrieve the pivot
 	if (get_bottom_value(stk_a) == get_value_lst(pivot))
 		perform_reverse_rotate(stk_a);
-
-	//here I separate lst into: lst, second (with pivot)
-	first = pivot->previous;
-	first->next = NULL;
+	tmp = pivot->previous;
+	tmp->next = NULL;
 	pivot->previous = NULL;
-
-	//and we sort the elements in stack b
-	sorted = sort_half(stk_a, stk_b, lst);
-
-	//we put all those elements back at stack a, the higher ones at the bottom and the big ones on top
-	if (sorted)
-		pushed_values = push_values_sorted(stk_b, stk_a, 0);
-	else
-		pushed_values = push_values_inverse_sorted(stk_b, stk_a, 0);
-
-	//and we put the lower elements on top
-	rotate_elem(stk_a, pushed_values);
-
+	sort_and_push(stk_a, stk_b, lst, 1);
 	while (get_top_value(stk_a) != get_lower_value(lst))
 		perform_rotate(stk_a);
-
-	//here I put back lst and second
 	ft_lstadd_back(&lst, pivot);
-
-	//here all should be sorted
-	//print_stacks(stk_a, stk_b, "Sorted");
 }

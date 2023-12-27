@@ -6,8 +6,6 @@ DEBUG		=	-g
 NAME 		=	push_swap
 PRINTF		=	libftprintf.a
 
-LIBRARIES	=	-L${STATIC_LIBS} -lftprintf
-
 #---FILES and their directories---
 #parent dir
 SRC			=	src
@@ -15,7 +13,9 @@ INCLUDES	=	include
 
 PRINTF_SRC	=	printf
 
-STATIC_LIBS	=	libs
+LIBS		=	libs
+
+LIBRARIES	=	-L./${LIBS} -lftprintf
 
 #dir of operations displayed by the terminal
 OPERATIONS_DIR		=	${SRC}/operations
@@ -58,16 +58,19 @@ HEADER				=	${INCLUDES}/push_swap.h
 
 # RULES
 
-all: ${PRINTF} ${NAME}
+all: ${LIBS} ${PRINTF} ${NAME}
 
 ${PRINTF}:
 	@make -C ${PRINTF_SRC}
-	cp ${PRINTF_SRC}/${PRINTF} ${STATIC_LIBS}
+	cp ${PRINTF_SRC}/${PRINTF} ${LIBS}
 
 ${NAME}: ${OBJS}
 	${CC} $^ -o $@ ${LIBRARIES}
 	@echo "Compilation with main of $@ succesfull"
-	
+
+${LIBS}:
+	mkdir -p $@
+
 clean:
 	@rm -f ${OBJS}
 	@make clean -C ${PRINTF_SRC}
@@ -75,7 +78,7 @@ clean:
 fclean: clean
 	@rm -f ${NAME}
 	@make fclean -C ${PRINTF_SRC}
-	@rm ${STATIC_LIBS}/${PRINTF}
+	@rm ${LIBS}/${PRINTF}
 
 re: fclean all
 	
